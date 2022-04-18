@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "La_Quinzaine",
+    "slug": "La_Quinzaine",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "La_Quinzaine"
+}
