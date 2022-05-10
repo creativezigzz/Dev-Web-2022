@@ -30,7 +30,7 @@ class Beer{
     static findAll(){
         let sql = `SELECT * FROM beer;`;
 
-        return db.execute(sql);
+        return db.executeSql(sql);
     }
     static findById(idBeer){
         let sql = `SELECT * FROM beer WHERE idBeer ${idBeer};`;
