@@ -3,7 +3,7 @@ import {Button,View, Text, EventEmitter } from 'react-native';
 import MyButton from '../components/menu_button';
 import MyTextInput from '../components/text_input';
 
-const SigninScreen = () =>{
+const SignInScreen = () =>{
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
     const onSignInPressed = () =>{
@@ -33,4 +33,4 @@ const SigninScreen = () =>{
     </View>
 )}
 
-export default SigninScreen;
+export default SignInScreen;

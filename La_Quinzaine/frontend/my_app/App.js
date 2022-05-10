@@ -2,8 +2,8 @@ import * as React from 'react';
 import {Button,View, Text, EventEmitter,StyleSheet,Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SigninScreen from './src/views/SignInScreen';
-import LoginScreen from './src/views/LogInScreen';
+import SignInScreen from './src/views/SignInScreen';
+import LogInScreen from './src/views/LogInScreen';
 
 function Menu({ navigation }) {
   return (
@@ -92,7 +92,7 @@ function Parametres({ navigation }) {
 function Connexion({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',backgroundColor:'gray' }}>
-      <SigninScreen></SigninScreen>
+      <LogInScreen></LogInScreen>
       <Pressable 
         onPress={() => 
           navigation.navigate('Menu')
@@ -105,7 +105,7 @@ function Connexion({ navigation }) {
 function Inscription({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',backgroundColor:'gray' }}>
-      <LoginScreen></LoginScreen>
+      <SignInScreen></SignInScreen>
       <Pressable 
         onPress={() => 
           navigation.navigate('Menu')

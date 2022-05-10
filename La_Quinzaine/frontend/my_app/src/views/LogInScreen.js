@@ -3,11 +3,26 @@ import {Button,View, Text, EventEmitter } from 'react-native';
 import MyButton from '../components/menu_button';
 import MyTextInput from '../components/text_input';
 
-const LoginScreen = () =>{
+const LogInScreen = () =>{
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
+    const [isSign,setSign] = useState();
+
     const onSignInPressed = () =>{
-        console.warn('log in');
+        const url='https://pokeapi.co/api/v2/pokemon/1';
+        fetch(url)
+            .then(response => response.json())  
+            .then(json => test(json));   
+    }
+
+    const test = (json) =>{
+        if(username==json.name && password==json.id){
+            console.warn('connected');
+        }
+        else{
+            console.warn('disconnected');
+        }
+        console.log(json.name +" "+ json.id)
     }
    return(
    <View>
@@ -33,4 +48,4 @@ const LoginScreen = () =>{
     </View>
 )}
 
-export default LoginScreen;
+export default LogInScreen;
