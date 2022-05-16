@@ -8,6 +8,10 @@ app.use(express.json()); // parse json bodies in the request object
 
 // Redirect requests to endpoint starting with /posts to postRoutes.js
 app.use("/posts", require("./routes/postRoutes"));
+app.use("/user", require("./routes/userRoutes"));
+app.get("/", (req,res) =>{
+  res.send("Hello World");
+})
 
 // Global Error Handler. IMPORTANT function params MUST start with err
 app.use((req,res,next,err) => {
@@ -21,5 +25,5 @@ app.use((req,res,next,err) => {
 });
 
 // Listen on pc port
-const PORT = process.env.PORT || 3306;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));

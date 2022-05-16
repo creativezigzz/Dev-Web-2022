@@ -8,6 +8,6 @@ router
     .get(userControllers.getAllUsers)
     .post(userControllers.addNewUser);
 
-router.route("/:pseudo").get(userControllers.getUserById);
+//router.route("/:pseudo").get(userControllers.getUserById);
 
 module.exports = router;

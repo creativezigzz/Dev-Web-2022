@@ -1,27 +1,26 @@
 const db = require('../config/db');
 
 class User{
-    constructor(pseudo,email,password,idBeer) {
+    constructor(pseudo,email,password) {
         this.pseudo = pseudo;
         this.email = email;
         this.password = password;
-        this.idBeer = idBeer;
     }
     async save(){
         let sql = `
-            insert into laquinzaine.user(pseudo, email, password) VALUES 
+            INSERT INTO laquinzaine.user(email, password, pseudo) VALUES 
             ("${this.pseudo}",
              "${this.email}",
              "${this.password}"
              );
         `;
-        const [newUser, _] = await db.executeSql(sql);
+        const [newUser,] = await db.execute(sql);
         return newUser;
     }
     static  findAll(){
         let sql = `SELECT * FROM laquinzaine.user;`;
 
-        return db.executeSql(sql);
+        return db.execute(sql);
     }
     static findById(idUser){
         let sql = `SELECT * FROM user WHERE iduser = ${idUser}`
@@ -30,7 +29,7 @@ class User{
     }
     static findUserPassword(pseudo,password){
         let sql = `SELECT * FROM user WHERE laquinzaine.user.pseudo = "${pseudo}" AND laquinzaine.user.password = "${password}";`;
-    return db.executeSql(sql);
+    return db.execute(sql);
     }
 
 }
