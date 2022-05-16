@@ -25,3 +25,15 @@ module.exports.getAllUsers = async (req,res,next) =>
         next(e);
     }
 }
+module.exports.findUserPassword = async(req, res) =>{
+    try{
+        const user = await User.findUserPassword(req.pseudo,req.password)
+
+        res.status(200).json(user);
+    }
+    catch (e){
+        console.log(e);
+    }
+}
+module.exports.deleteUser = async  (req, res) => {
+}
