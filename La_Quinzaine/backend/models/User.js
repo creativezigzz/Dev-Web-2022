@@ -25,7 +25,7 @@ class User{
     static findById(idUser){
         let sql = `SELECT * FROM user WHERE iduser = ${idUser}`
 
-        return db.executeSql(sql);
+        return db.execute(sql);
     }
     static findUserPassword(pseudo,password){
         let sql = `SELECT * FROM user WHERE laquinzaine.user.pseudo = "${pseudo}" AND laquinzaine.user.password = "${password}";`;

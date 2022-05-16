@@ -7,7 +7,7 @@ router
     .route("/")
     .get(userControllers.getAllUsers)
     .post(userControllers.addNewUser);
-
+//router.route("/").get(userControllers.findUserPassword);
 //router.route("/:pseudo").get(userControllers.getUserById);
 
 module.exports = router;
