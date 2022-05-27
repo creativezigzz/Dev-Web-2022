@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, View, Text, EventEmitter, StyleSheet, Pressable, ScrollView, ImageBackground } from 'react-native';
+import { Button, View, Text, EventEmitter, StyleSheet, Pressable, ScrollView, ImageBackground,AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Menu from './src/views/Menu';
