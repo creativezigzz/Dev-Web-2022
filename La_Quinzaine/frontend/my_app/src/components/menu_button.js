@@ -6,7 +6,7 @@ const MyMenuButton = (props) => {
     return(
         <View>
             <Pressable onPress={() => props.onClickMyButton(props.where)}>
-                <Text style={props.style}>Go to {props.where}</Text>
+                <Text style={props.style}>{props.where}</Text>
             </Pressable>
         </View>
     );
