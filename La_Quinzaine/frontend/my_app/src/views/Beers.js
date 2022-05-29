@@ -9,17 +9,16 @@ const {signal} = controller;
 const MyBeers = (props) => {
 
 
-
     useEffect(() => {
         getData('http://localhost:3000/api/beers/').then(data => setBeerList(data.data));    // add conditional check
-    }, []);
+    }, []); 
+      
 
+    const [lookBeer, setLookBeer] = useState('');
+    const [beerList, setBeerList] = useState()  // ICI METTRE FETCH DE TOUTES LES BIERES PAR ORDRE ALPHABETIQUE MAJEUR ET QUANTITE MINEUR DANS LE USESTATE()
 
-
-    const [lookBeer, setLookBeer] = useState(''); 
-    const [beerList,setBeerList]=useState([])
     const goNav = props.goNav;
-
+    
     const AfficherBeer = () => {
         return (
             <View>
@@ -40,7 +39,6 @@ const MyBeers = (props) => {
     }
 
     const AfficherInfoBeer = () => {
-
 
 
         return (
@@ -65,7 +63,7 @@ const MyBeers = (props) => {
             goNav("Information de la bière", props.beerId, goNav);
         }
 
-        const changeQuantity = (number) =>{
+        const changeQuantity = (number) =>{ 
             if( number >= 100){
                 return (number/100).toString() + 'L';
             }
@@ -78,8 +76,8 @@ const MyBeers = (props) => {
                     <Text style={style.nameBiereList}>{props.beerName}</Text>
                     <Text style={style.textBiereList}>{props.degree}</Text>
                     <Text style={style.textBiereList}>{props.price} €</Text>
-                    <Text style={style.textBiereList}>{props.quantity}</Text>
-                    <Image style={style.imageBiere} source={`require(${props.source})`}></Image>
+                    <Text style={style.textBiereList}>{changeQuantity(props.quantity)}</Text>
+                    <Image style={style.imageBiere} source={require('../data/images/Bush-Caractere-33cl.webp')}></Image>
                 </TouchableOpacity>
             </View>
         )
@@ -89,25 +87,15 @@ const MyBeers = (props) => {
         <View style={{flex: 1}}>
             <View style={{height: 25, flexDirection: 'row', marginTop: 25}}>
                 <BarreDeRecherche style={{flex: 3}} value={lookBeer} setValue={setLookBeer}
-                                  placeholder={'Recherche de Biere'}></BarreDeRecherche>
-                <Pressable style={{flex: 1}} onPress={bouttonRecheche}>
-                    <Image style={{
-                        height: 25,
-                        resizeMode: 'contain',
-                        borderColor: 'black',
-                        borderWidth: 1,
-                        width: 42,
-                        marginHorizontal: 25
-                    }} source={require('../data/images/search.png')}></Image>
-                </Pressable>
+                 placeholder={'Recherche de Biere'}></BarreDeRecherche>
             </View>
-            <View style={{ padding: 10, flex: 1 }}>
+            <View style={{padding: 10, flex: 1}}>
                 <AfficherBeer goNav={props.goNav}></AfficherBeer>
             </View>
             <View>
             </View>
 
-        </View >
+        </View>
 
     )
 }
