@@ -5,20 +5,21 @@ import BarreDeRecherche from "../components/BarreDeRecherche";
 
 
 
-const MyCarte = (props) => {
+const MyBeers = (props) => {
     const [lookBeer, setLookBeer] = useState('');
+    const goNav=props.goNav;
 
-    const AfficherBiere = (props) => {
+    const AfficherBeer = () => {
     
         return (
             <View>
-                <AfficherInfoBiere></AfficherInfoBiere>
+                <AfficherInfoBeer></AfficherInfoBeer>
                 <FlatList
                     data={listBieres}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) =>
-                        <BiereInfo  beerId={item.id} goNav={props.goNav} beerName={item.beerName} degree={item.degree}
-                            price={item.price} quantity={item.quantity} source={item.urlImage}></BiereInfo>
+                        <BeerInfo  beerId={item.id} beerName={item.beerName} degree={item.degree}
+                            price={item.price} quantity={item.quantity} source={item.urlImage}></BeerInfo>
                     }
     
                 />
@@ -26,7 +27,7 @@ const MyCarte = (props) => {
         )
     }
 
-    const AfficherInfoBiere =() =>{
+    const AfficherInfoBeer =() =>{
 
 
 
@@ -44,10 +45,11 @@ const MyCarte = (props) => {
     }
     
     
-    const BiereInfo = (props) => {
+    const BeerInfo = (props) => {
     
         const onClick = () =>{
-            props.goNav(props.beerId );
+            console.log(goNav)
+            goNav("Information de la bière",props.beerId,goNav);
         }
         
     
@@ -66,11 +68,12 @@ const MyCarte = (props) => {
 
     return (
         <View style={{flex:1 }}>
-            <View style={{ height:60 }}>
-                <BarreDeRecherche value={lookBeer} setValue={setLookBeer} placeholder={'Recherche de Biere'}></BarreDeRecherche>
+            <View style={{ height:60 ,flexDirection:'row'}}>
+                <BarreDeRecherche style={{flex:3}} value={lookBeer} setValue={setLookBeer} placeholder={'Recherche de Biere'}></BarreDeRecherche>
+                <Text style={{flex:1,marginTop:20,fontSize:20}}>appuyer ici</Text>
             </View> 
             <View style={{ padding:10,flex:1}}>
-                <AfficherBiere goNav={props.goNav}></AfficherBiere>
+                <AfficherBeer goNav={props.goNav}></AfficherBeer>
             </View>
             <View>
            </View>
@@ -101,4 +104,4 @@ const style = StyleSheet.create({
 }
 )
 
-export default MyCarte;
+export default MyBeers;

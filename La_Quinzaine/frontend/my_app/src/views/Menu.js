@@ -1,18 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, EventEmitter,Image, StyleSheet, Pressable, ScrollView, ImageBackground } from 'react-native';
 import MyMenuButton from '../components/menu_button';
 import SignInScreen from '../views/SignInScreen';
 import LogInScreen from '../views/LogInScreen';
-import MyCarte from '../views/Carte';
+import MyBeers from '../views/Beers';
+import MyBrewery from '../views/Brewery'
+import MyAdmin from './AdminPage';
+import DeconnexionScreen from './DeconnexionScreen';
 
 
 
 
 function Menu({ navigation }) {
 
+    const [adminLogIn,setAdminLogIn] = useState(true);
+
+    const AdminMenu = () =>{
+        if(adminLogIn==true)
+        return(
+            <MyMenuButton style={style.pressable_menu} where={'Admin'} onClickMyButton={goNavigate}></MyMenuButton>
+        )
+        else return (null); 
+    }
+
     const goNavigate = (where) => {
         navigation.navigate(where);
     }
+
 
     //component qui construit un sous-menu lorsqu'on appuie dessus.
     const BuildMySubMenu = (props) => {
@@ -33,11 +47,11 @@ function Menu({ navigation }) {
             return (
                 <View>
                     <Pressable onPress={() => setOpen(!open)}>
-                        <Text style={style.pressable_menu}>Carte</Text>
+                        <Text style={style.pressable_menu}>Les Cartes</Text>
                     </Pressable>
                     <View style={{flexDirection:'row'}}>
-                        <Image style={{flex:1}} source={require('../data/images/font.png')}></Image>
-                        <View style={{flexDirection:'column',flex:9}}>
+                        <Image style={{flex:1,height:160}} source={require('../data/images/font.png')}></Image>
+                        <View style={{flexDirection:'column',flex:8}}>
                         <MyMenuButton style={style.pressable_sub_menu} where={props.where} onClickMyButton={goNavigate}></MyMenuButton>
                         <MyMenuButton style={style.pressable_sub_menu} where={props.where2} onClickMyButton={goNavigate}></MyMenuButton>
                         </View>
@@ -50,16 +64,78 @@ function Menu({ navigation }) {
     return (
         <View style={{ alignItems: 'center' }}>
             <ScrollView style={style.scroll_view}>
-                <Text style={style.menu_text}>Menu Screen</Text>
-                <BuildMySubMenu where={'Carte'} where2={'Brewery'}></BuildMySubMenu>
-                <MyMenuButton style={style.pressable_menu} where={'Evenement'} onClickMyButton={goNavigate}></MyMenuButton>
-                <MyMenuButton style={style.pressable_menu} where={'Parametres'} onClickMyButton={goNavigate}></MyMenuButton>
+                <BuildMySubMenu where={'Carte des Bières'} where2={'Carte des Brasseries'}></BuildMySubMenu>
+                {/*<MyMenuButton style={style.pressable_menu} where={'Evenement'} onClickMyButton={goNavigate}></MyMenuButton>
+                <MyMenuButton style={style.pressable_menu} where={'Parametres'} onClickMyButton={goNavigate}></MyMenuButton>*/}
                 <MyMenuButton style={style.pressable_menu} where={'Connexion'} onClickMyButton={goNavigate}></MyMenuButton>
                 <MyMenuButton style={style.pressable_menu} where={'Inscription'} onClickMyButton={goNavigate}></MyMenuButton>
+                <AdminMenu></AdminMenu>
                 
             </ScrollView>
         </View>
     );
+}
+
+
+const Admin =(props) => {
+    const goNavigate = (where,id,fun) => {
+        props.navigation.navigate(where, { paramKey: id });
+    }
+
+    // goNav va stocké la fonction pour pouvoir être réutilisée
+    return (
+        <View style={style.menu_view}>
+            <MyAdmin goNav={goNavigate} go={props}></MyAdmin> 
+
+        </View>
+
+    );
+}
+// fonction de navigation de la view Beers : a en id 
+const Beers = (props) => {
+
+    // fonction de navigation transmise à ses childs 
+    // where = l'endroit de navigation
+    // id = info de l'id transmise à la page
+    const goNavigate = (where,id,fun) => {
+        props.navigation.navigate(where, { paramKey: id , paramFun : fun});
+    }
+
+    // goNav va stocké la fonction pour pouvoir être réutilisée
+    return (
+        <View style={style.menu_view}>
+            <MyBeers goNav={goNavigate} go={props}></MyBeers> 
+
+        </View>
+
+    );
+}
+
+// fonction de navigation de la view Beers : a en id 
+const Brewery = (props) => {
+
+    // fonction de navigation transmise à ses childs 
+    // where = l'endroit de navigation
+    // id = info de l'id transmise à la page
+    const goNavigate = (where,id) => {
+        props.navigation.navigate(where, { paramKey: id });
+    }
+
+    // goNav va stocké la fonction pour pouvoir être réutilisée
+    return (
+        <View style={style.menu_view}>
+            <MyBrewery goNav={goNavigate} go={props}></MyBrewery> 
+        </View>
+
+    );
+}
+
+const Deconnexion = () =>{
+    return(
+        <View style={style.menu_view}>
+            <DeconnexionScreen></DeconnexionScreen>
+        </View>
+    )
 }
 
 function Evenement({ navigation }) {
@@ -68,7 +144,7 @@ function Evenement({ navigation }) {
     }
     return (
         <View style={style.menu_view}>
-            <Text style={style.menu_text}>Carte Evenement</Text>
+            <Text style={style.menu_text}>Beers Evenement</Text>
             <MyMenuButton style={style.pressable_retour} where={'Menu'} onClickMyButton={goNavigate}></MyMenuButton>
         </View>
 
@@ -114,19 +190,6 @@ function Inscription({ navigation }) {
     );
 }
 
-const Carte = (props) => {
-    const goNavigate = (beerId) => {
-        props.navigation.navigate("BeerPage", { paramKey: beerId });
-    }
-
-    return (
-        <View style={style.menu_view}>
-            <MyCarte goNav={goNavigate} go={props}></MyCarte>
-
-        </View>
-
-    );
-}
 
 
 
@@ -146,7 +209,7 @@ const style = StyleSheet.create({
     pressable_sub_menu: {
         backgroundColor: 'pink',
         fontSize: 32,
-        height: 100,
+        height: 80,
         flex:9,
         textAlign: "center",
         textAlignVertical: "center"
@@ -169,4 +232,4 @@ const style = StyleSheet.create({
     }
 })
 export default Menu;
-export { Carte, Evenement, Parametres, Connexion, Inscription };
+export { Beers, Evenement, Parametres, Connexion, Inscription,Brewery,Admin,Deconnexion };

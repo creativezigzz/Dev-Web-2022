@@ -12,10 +12,10 @@ const SignInScreen = () =>{
     }
    return(
    <View>
-        <Text style={{fontSize:28}}>Utilisateur :</Text>
+        <Text style={{fontSize:28}}>Pseudo :</Text>
 
         <MyTextInput 
-        placeholder='Utilisateur'
+        placeholder='Pseudo'
         value={username}
         setValue={setUsername}
         ></MyTextInput>
