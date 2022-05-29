@@ -10,14 +10,18 @@ const LogInScreen = () =>{
 
     const onSignInPressed = () =>{
         const url='http://localhost:3000/user/login';
+        const data = { pseudo: username, password : password};
         fetch(url, {
             method: 'POST',
-            headers: {
+            headers: new Headers({
+                'Authorization': 'Basic',
                 'Content-Type':'application/json'
-            }
+            }),
+            mode: 'no-cors',
+            body: JSON.stringify(data)
+
         })
-            .then(response => response.json())  
-            .then(json => test(json));   
+            .then( response => console.log(response))
     }
 
     const test = (json) =>{

@@ -7,7 +7,7 @@ module.exports = {
                 values(?,?,?,?,?)`,
             [
                 data.idBrewery,
-                data.idtype,
+                data.idType,
                 data.beerName,
                 data.degree,
                 data.isNew
@@ -21,10 +21,10 @@ module.exports = {
             }
         );
     },
-    getbeerBybeerEmail: (email, callBack) => {
+    getbeerByType: (idType, callBack) => {
         pool.query(
-            `select * from beer where email = ?`,
-            [email],
+            `select * from beer where idType = ?`,
+            [idType],
             (error, results, fields) => {
                 if (error) {
                     callBack(error);
@@ -33,7 +33,7 @@ module.exports = {
             }
         );
     },
-    getbeerBybeerPseudo: (pseudo, callBack) => {
+    getbeerByBrewery: (idBrewery, callBack) => {
         pool.query(
             `select * from beer where pseudo = ?`,
             [pseudo],

@@ -38,7 +38,7 @@ module.exports = {
             if (!results) {
                 return res.json({
                     success: 0,
-                    data: "Invalid pseudo or password"
+                    message: "Invalid pseudo or password"
                 });
             }
             const result = compareSync(body.password, results.password);
