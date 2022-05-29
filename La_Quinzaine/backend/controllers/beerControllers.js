@@ -7,8 +7,6 @@ const {
     create,
     deletebeer
 } = require("../models/beer")
-const beerRoutes = require('../routes/beerRoutes')
-const {getUsers} = require("../models/users");
 
 module.exports = {
     createBeer: (req, res) => {
@@ -39,5 +37,18 @@ module.exports = {
                 data: results
             });
         });
+    },
+    getbeerBybeerId: (req, res) => {
+        getbeerBybeerId((err, results) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(405);
+                }
+                return res.json({
+                    success:1,
+                    data: results
+                })
+            }
+        )
     }
 }

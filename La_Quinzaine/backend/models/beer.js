@@ -2,15 +2,16 @@ const pool = require("../config/db");
 module.exports = {
     create: (data, callBack) => {
         pool.query(
-            `insert into beer( idBrewery, idType, beerName, degree, isNew, price) 
-                values(?,?,?,?,?,?)`,
+            `insert into beer( idBrewery, idType, beerName, degree, isNew, price, quantite) 
+                values(?,?,?,?,?,?,?)`,
             [
                 data.idBrewery,
                 data.idType,
                 data.beerName,
                 data.degree,
                 data.isNew,
-                data.price
+                data.price,
+                data.quantite
 
             ],
             (error, results, fields) => {
@@ -71,7 +72,7 @@ module.exports = {
     },
     getbeers: callBack => {
         pool.query(
-            `select idBeer, idBrewery, idType, beerName, degree, isNew, price from beer`,
+            `select idBeer, idBrewery, idType, beerName, degree, isNew, price,quantite from beer order by beerName, quantite`,
             [],
             (error, results, fields) => {
                 if (error) {

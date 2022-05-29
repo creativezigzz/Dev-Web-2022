@@ -6,8 +6,9 @@ const router = express.Router();
 router
     .route("/")
     .get(beerControllers.getAllBeers)
-    .post(beerControllers.addNewBeer);
+    .post(beerControllers.createBeer);
 
-router.route("/:idBeer").get(beerControllers.getBeerById);
+
+router.route("/:idBeer").get(beerControllers.getbeerBybeerId);
 
 module.exports = router;

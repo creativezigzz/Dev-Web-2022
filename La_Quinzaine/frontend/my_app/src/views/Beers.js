@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { Pressable, View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { listBieres } from "../data/biereList";
 import BarreDeRecherche from "../components/BarreDeRecherche";
-
-
+import {postData, getData} from "../context/fetchContext"
+const controller = new AbortController();
+const {signal} = controller;
 
 const MyBeers = (props) => {
-    const [lookBeer, setLookBeer] = useState(''); 
-    const [beerList,setBeerList]=useState('rien')  // ICI METTRE FETCH DE TOUTES LES BIERES PAR ORDRE ALPHABETIQUE MAJEUR ET QUANTITE MINEUR DANS LE USESTATE()
-   
-   
-    const goNav = props.goNav;
 
+    const beer = getData('http://localhost:3000/api/beers/')
+        .then(res => setBeerList(res.data));
+
+    const [lookBeer, setLookBeer] = useState(''); 
+    const [beerList,setBeerList]=useState()  // ICI METTRE FETCH DE TOUTES LES BIERES PAR ORDRE ALPHABETIQUE MAJEUR ET QUANTITE MINEUR DANS LE USESTATE()
+
+    const goNav = props.goNav;
 
     const bouttonRecheche = () => {
         setBeerList(lookBeer)//quand on appuis on va mettre la variable lookbeer dans un fetch qui va retourner les bières commençant par looBeer
@@ -19,16 +21,17 @@ const MyBeers = (props) => {
     
     }
     const AfficherBeer = () => {
-
         return (
             <View>
                 <AfficherInfoBeer></AfficherInfoBeer>
                 <FlatList
-                    data={listBieres}//UTILISE beerList DU USESTATE POUR AVOIR UN TRUC REACTIF 
-                    keyExtractor={(item) => item.id}
+
+                    data={beerList}
+                   //UTILISE beerList DU USESTATE POUR AVOIR UN TRUC REACTIF
+                    keyExtractor={(item) => item.idBeer}
                     renderItem={({ item }) =>
-                        <BeerInfo beerId={item.id} beerName={item.beerName} degree={item.degree}
-                            price={item.price} quantity={item.quantity} source={item.urlImage}></BeerInfo>
+                        <BeerInfo beerId={item.idBeer} beerName={item.beerName} degree={item.degree}
+                            price={item.price} quantity={item.quantite} source={item.imageUrl}></BeerInfo>
                     }
 
                 />
@@ -69,7 +72,7 @@ const MyBeers = (props) => {
                     <Text style={style.textBiereList}>{props.degree}</Text>
                     <Text style={style.textBiereList}>{props.price} €</Text>
                     <Text style={style.textBiereList}>{props.quantity}</Text>
-                    <Image style={style.imageBiere} source={props.source}></Image>
+                    <Image style={style.imageBiere} source={`require(${props.source})`}></Image>
                 </TouchableOpacity>
             </View>
         )
