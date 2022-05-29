@@ -1,40 +1,43 @@
-const Beer = require('../models/Beer');
-const beerRoutes= require('../routes/beerRoutes')
+require("dotenv").config();
+const {
+    getbeerBybeerId,
+    getbeerByBrewery,
+    getbeers,
+    getbeerByType,
+    create,
+    deletebeer
+} = require("../models/beer")
+const beerRoutes = require('../routes/beerRoutes')
+const {getUsers} = require("../models/users");
 
-module.exports.getAllBeers = async (req, res, next) => {
-    try{
-        const beers = await Beer.findAll();
-        res.status(200).json({beers});
-    }catch (e){
-        console.log(e);
-        next(e);
+module.exports = {
+    createBeer: (req, res) => {
+        const body = req.body;
+        create(body, (err, results) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({
+                    success: 0,
+                    message: "Database connection errror"
+                });
+
+            }
+            return res.status(200).json({
+                success: 1,
+                data: results
+            });
+        });
+    },
+    getAllBeers: (req, res) => {
+        getbeers((err, results) => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            return res.json({
+                success: 1,
+                data: results
+            });
+        });
     }
-
-}
-
-module.exports.addNewBeer = async (req, res, next) => {
-    //const beer = new Beer(10, 1, 3, "Karmeliet", 1, 25, 1, 0)
-    try{
-        let {degree, idbrewery, price, beerName, idtype, quantity, stock, isNew} = req.body;
-        let beer = new Beer(degree, idbrewery, price, beerName, idtype, quantity, stock, isNew)
-
-        beer = await beer.save();
-        res.status(201).json({message : "Beer added to the database"});
-    }catch (e) {
-        console.log(e);
-        next(e);
-    }
-}
-module.exports.getBeerById = async (req, res, next) => {
-    try{
-        let idBeer = req.params.idBeer;
-        const beers = await Beer.findById();
-        res.status(200).json({beers});
-    }catch (e){
-        console.log(e);
-        next(e);
-    }
-}
-module.exports.getBeerByName = async (req, res, next) => {
-    res.send("Get a specific beer by name Route")
 }

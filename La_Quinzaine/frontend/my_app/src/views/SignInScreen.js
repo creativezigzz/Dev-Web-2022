@@ -8,7 +8,9 @@ const SignInScreen = () =>{
     const [password,setPassword] = useState('');
     const [email,setEmail] = useState('');
     const onSignInPressed = () =>{
-        console.warn('sign in');
+        const url = 'http://localhost:3000/users/'
+        fetch()
+            .then
     }
    return(
    <View>

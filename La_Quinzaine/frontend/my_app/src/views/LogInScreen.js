@@ -9,19 +9,23 @@ const LogInScreen = () =>{
     /* const [isSign,setSign] = useState();  A SUPPRIMER ?*/
 
     const onSignInPressed = () =>{
-        const url='http://localhost:3000/user/login';
-        const data = { pseudo: username, password : password};
+        const url='http://localhost:3000/api/users/login';
+        const data = { pseudo: `${username}`, password : `${password}`};
+        console.log(JSON.stringify(data));
         fetch(url, {
             method: 'POST',
-            headers: new Headers({
-                'Authorization': 'Basic',
+            headers: {
                 'Content-Type':'application/json'
-            }),
-            mode: 'no-cors',
-            body: JSON.stringify(data)
+            },
+            body:
+                JSON.stringify(data)
 
         })
-            .then( response => console.log(response))
+            .then(response => response.json())
+            .then(data => {console.log('Success', data)})
+            .catch((error) => {
+                console.error('Error',error)
+            })
     }
 
     const test = (json) =>{

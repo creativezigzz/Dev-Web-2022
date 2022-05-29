@@ -1,16 +1,16 @@
 const pool = require("../config/db");
-
 module.exports = {
     create: (data, callBack) => {
         pool.query(
-            `insert into beer( idBrewery, idType, beerName, degree, isNew) 
-                values(?,?,?,?,?)`,
+            `insert into beer( idBrewery, idType, beerName, degree, isNew, price) 
+                values(?,?,?,?,?,?)`,
             [
                 data.idBrewery,
                 data.idType,
                 data.beerName,
                 data.degree,
-                data.isNew
+                data.isNew,
+                data.price
 
             ],
             (error, results, fields) => {
@@ -45,10 +45,22 @@ module.exports = {
             }
         );
     },
+    getBeerOrderedByPrice:  callBack => {
+        pool.query(
+            `select * from beer order by price`,
+            [],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
+            }
+        );
+    },
     getbeerBybeerId: (id, callBack) => {
         pool.query(
-            `select idBrewery, idType, beerName, degree, isNew from beer where idBeer = ?`,
-            [id],
+            `select idBrewery, idType, beerName, degree, isNew,price from beer where idBeer = ?`,
+            [idBeer],
             (error, results, fields) => {
                 if (error) {
                     callBack(error);
@@ -59,7 +71,7 @@ module.exports = {
     },
     getbeers: callBack => {
         pool.query(
-            `select idBeer, idBrewery, idType, beerName, degree, isNew from beer`,
+            `select idBeer, idBrewery, idType, beerName, degree, isNew, price from beer`,
             [],
             (error, results, fields) => {
                 if (error) {
@@ -71,7 +83,7 @@ module.exports = {
     },
     updatebeer: (data, callBack) => {
         pool.query(
-            `update beer set degree=?, beerName=?, price=? where idbeer = ?`,
+            `update beer set degree=?, beerName=?, price=? where idBeer = ?`,
             [
                 data.degree,
                 data.beerName,

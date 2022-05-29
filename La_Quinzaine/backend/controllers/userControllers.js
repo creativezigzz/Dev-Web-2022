@@ -32,6 +32,7 @@ module.exports = {
     },
     login: (req, res) => {
         const body = req.body;
+        console.log(body);
         getUserByUserPseudo(body.pseudo, (err, results) => {
             if (err) {
                 console.log(err);
@@ -54,9 +55,9 @@ module.exports = {
                     token: jsontoken
                 });
             } else {
-                return res.status(304).json({
+                return res.status(405).json({
                     success: 0,
-                    data: "Invalid email or password"
+                    message: "Invalid email or password"
                 });
             }
         });
