@@ -9,14 +9,14 @@ const LogInScreen = () =>{
     /* const [isSign,setSign] = useState();  A SUPPRIMER ?*/
 
     const onSignInPressed = () =>{
-        const url='https://pokeapi.co/api/v2/pokemon/1';
+        const url='http://localhost:3000/user/';
         fetch(url)
             .then(response => response.json())  
             .then(json => test(json));   
     }
 
     const test = (json) =>{
-        if(username==json.name && password==json.id){
+        if(username===json.pseudo && password===json.password){
             console.warn('connected');
         }
         else{

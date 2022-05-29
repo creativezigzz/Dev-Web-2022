@@ -6,6 +6,7 @@ import MyTextInput from '../components/text_input';
 const SignInScreen = () =>{
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
+    const [email,setEmail] = useState('');
     const onSignInPressed = () =>{
         console.warn('sign in');
     }
@@ -18,6 +19,12 @@ const SignInScreen = () =>{
         value={username}
         setValue={setUsername}
         ></MyTextInput>
+       <Text style={{fontSize:28}}>Email :</Text>
+       <MyTextInput
+           placeholder='Email'
+           value={email}
+           setValue={ setEmail}
+       ></MyTextInput>
 
         <Text style={{fontSize:28}}>Mot de Passe :</Text>
 

@@ -1,39 +1,129 @@
-const User = require("../models/User");
+const {
+    create,
+    getUserByUserEmail,
+    getUserByUserPseudo,
+    getUserByUserId,
+    getUsers,
+    updateUser,
+    deleteUser
+} = require("../models/users");
+const { hashSync, genSaltSync, compareSync } = require("bcrypt");
+const { sign } = require("jsonwebtoken");
 
-module.exports.addNewUser = async (req, res, next) => {
-    try{
-        console.log(req)
-        let {pseudo,email,password} = req.body;
-        let user = new User(pseudo, email, password);
-        await user.save();
-        res.status(201).json({message : "User added to the database"});
-    }catch (e) {
-        console.log(e);
-        next(e);
+module.exports = {
+    createUser: (req, res) => {
+        const body = req.body;
+        const salt = genSaltSync(10);
+        body.password = hashSync(body.password, salt);
+        create(body, (err, results) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({
+                    success: 0,
+                    message: "Database connection errror"
+                });
+            }
+            return res.status(200).json({
+                success: 1,
+                data: results
+            });
+        });
+    },
+    login: (req, res) => {
+        const body = req.body;
+        getUserByUserPseudo(body.pseudo, (err, results) => {
+            if (err) {
+                console.log(err);
+            }
+            if (!results) {
+                return res.json({
+                    success: 0,
+                    data: "Invalid pseudo or password"
+                });
+            }
+            const result = compareSync(body.password, results.password);
+            if (result) {
+                results.password = undefined;
+                const jsontoken = sign({ result: results }, "qwe1234", {
+                    expiresIn: "1h"
+                });
+                return res.json({
+                    success: 1,
+                    message: "login successfully",
+                    token: jsontoken
+                });
+            } else {
+                return res.json({
+                    success: 0,
+                    data: "Invalid email or password"
+                });
+            }
+        });
+    },
+    getUserByUserId: (req, res) => {
+        const id = req.params.id;
+        getUserByUserId(id, (err, results) => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            if (!results) {
+                return res.json({
+                    success: 0,
+                    message: "Record not Found"
+                });
+            }
+            results.password = undefined;
+            return res.json({
+                success: 1,
+                data: results
+            });
+        });
+    },
+    getUsers: (req, res) => {
+        getUsers((err, results) => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            return res.json({
+                success: 1,
+                data: results
+            });
+        });
+    },
+    updateUsers: (req, res) => {
+        const body = req.body;
+        const salt = genSaltSync(10);
+        body.password = hashSync(body.password, salt);
+        updateUser(body, (err, results) => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            return res.json({
+                success: 1,
+                message: "updated successfully"
+            });
+        });
+    },
+    deleteUser: (req, res) => {
+        const data = req.body;
+        deleteUser(data, (err, results) => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            if (!results) {
+                return res.json({
+                    success: 0,
+                    message: "Record Not Found"
+                });
+            }
+            return res.json({
+                success: 1,
+                message: "user deleted successfully"
+            });
+        });
     }
-}
-
-module.exports.getAllUsers = async (req,res,next) =>
-{
-
-    try {
-        const users = await User.findAll();
-
-        res.status(200).json(users[0]);
-    }catch (e) {
-        console.log(e);
-        next(e);
-    }
-}
-module.exports.findUserPassword = async(req, res) =>{
-    try{
-        const user = await User.findUserPassword(req.pseudo,req.password)
-
-        res.status(200).json(user);
-    }
-    catch (e){
-        console.log(e);
-    }
-}
-module.exports.deleteUser = async  (req, res) => {
-}
+};
