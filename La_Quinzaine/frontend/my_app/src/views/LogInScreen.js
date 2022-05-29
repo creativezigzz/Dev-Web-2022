@@ -9,7 +9,7 @@ const LogInScreen = () =>{
     /* const [isSign,setSign] = useState();  A SUPPRIMER ?*/
 
     const onSignInPressed = () =>{
-        const url='http://localhost:3000/user/login';
+        const url='http://localhost:3000/api/users/login';
         const data = { pseudo: username, password : password};
         fetch(url, {
             method: 'POST',

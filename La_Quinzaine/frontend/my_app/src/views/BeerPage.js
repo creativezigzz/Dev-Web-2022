@@ -63,8 +63,7 @@ const BeerPage = ({ route }) => {
 
                 const onClick = () => {
                     setNumber(props.number); //probablement modifiable pour modifier la donnée dans la data base.
-                    setStar(tabBool(props.number));
-                    console.log(star)
+                    setStar(tabBool(props.number));  
                 }
 
                 let color = require('../data/images/starBlank.png');
@@ -72,14 +71,14 @@ const BeerPage = ({ route }) => {
                     color = require('../data/images/starGolden.png');
                 }
                 return (
-                    <TouchableOpacity style={{flex:1}} onPress={onClick} >
-                        <Image style={{ height: 30, resizeMode: 'contain' }} source={color}></Image>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={onClick} >
+                        <Image style={{ height: 25, resizeMode: 'contain' }} source={color}></Image>
                     </TouchableOpacity>
                 )
             }
 
             return (
-                <View style={{flexDirection:'row'}}>
+                <View style={{ flexDirection: 'row',justifyContent:'center',width:140,marginHorizontal:25 }}>
                     <OneStar bool={star[0]} number={1} ></OneStar>
                     <OneStar bool={star[1]} number={2}></OneStar>
                     <OneStar bool={star[2]} number={3}></OneStar>
@@ -106,8 +105,13 @@ const BeerPage = ({ route }) => {
                         </View>
                     </View>
                 </View>
-                <View style={{ marginTop: 25, marginHorizontal: 35 }}>
-                    <Stars></Stars>
+                <View style={{ marginTop: 25, marginHorizontal: 25, flexDirection: 'row',justifyContent:'space-between'}}>
+                    <View style={{ flex: 1 }}>
+                        <Text style={{fontSize:20}} >Votre  Note :</Text>
+                    </View>
+                    <View style={{ flex: 2}}>
+                        <Stars ></Stars>
+                    </View>
                 </View>
             </View>
         )

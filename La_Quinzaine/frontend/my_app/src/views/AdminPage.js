@@ -5,8 +5,15 @@ import BarreDeRecherche from "../components/BarreDeRecherche";
 
 const MyAdmin = (props) => {
     const [lookBeer, setLookBeer] = useState('');
+    const [beerList,setBeerList]=useState('rien')  // ICI METTRE FETCH DE TOUTES LES BIERES PAR ORDRE ALPHABETIQUE MAJEUR ET QUANTITE MINEUR DANS LE USESTATE()
+   
     const goNav = props.goNav;
 
+    const bouttonRecheche = () => {
+        setBeerList(lookBeer)//quand on appuis on va mettre la variable lookbeer dans un fetch qui va retourner les bières commençant par looBeer
+                             //secondu le resultat ud fetch doit aller dans setBeerList(ici).
+    
+    }
 
 
     const AfficherBiere = (props) => {
@@ -102,9 +109,11 @@ const MyAdmin = (props) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <View style={{ height: 60, flexDirection: 'row' }}>
+              <View style={{ height: 25, flexDirection: 'row',marginTop:25 }}>
                 <BarreDeRecherche style={{ flex: 3 }} value={lookBeer} setValue={setLookBeer} placeholder={'Recherche de Biere'}></BarreDeRecherche>
-                <Text style={{ flex: 1, marginTop: 20, fontSize: 20 }}>appuyer ici</Text>
+                <Pressable style={{flex:1}}onPress={bouttonRecheche}>
+                    <Image style={{height:25, resizeMode: 'contain',borderColor:'black',borderWidth:1,width:42,marginHorizontal:25 }} source={require('../data/images/search.png')}></Image>
+                </Pressable>
             </View>
             <View style={{ padding: 10, flex: 1 }}>
                 <AfficherBiere goNav={props.goNav}></AfficherBiere>

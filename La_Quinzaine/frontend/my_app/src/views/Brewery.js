@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInput, View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Pressable,TextInput, View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { listBrewery } from "../data/breweryList";
 import BarreDeRecherche from "../components/BarreDeRecherche";
 import MyMenuButton from "../components/menu_button"
@@ -7,7 +7,15 @@ import MyMenuButton from "../components/menu_button"
 
 const MyBrewery = (props) => {
     const [lookBrewery, setLookBrewery] = useState('');
+    const [breweryList,setBreweryList]=useState('rien'); //meme delire que beerpage mais cette fois-ci
 
+
+
+    const bouttonRecheche = () => {
+        setBreweryList(lookBrewery)//quand on appuis on va mettre la variable lookbeer dans un fetch qui va retourner les bières commençant par looBeer
+                             //secondu le resultat ud fetch doit aller dans setBeerList(ici).
+    
+    }
 
     const AfficherBrewery = (props) => {
     
@@ -15,7 +23,7 @@ const MyBrewery = (props) => {
             <View>
                 <AfficherInfoBrewery></AfficherInfoBrewery>
                 <FlatList
-                    data={listBrewery}
+                    data={listBrewery}//mettre ici breweryList
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) =>
                         <BreweryInfo  breweryId={item.id} goNav={props.goNav} breweryName={item.breweryName}
@@ -61,8 +69,11 @@ const MyBrewery = (props) => {
 
     return (
         <View style={{flex:1 }}>
-            <View style={{ height:60 }}>
+            <View style={{ height: 25, flexDirection: 'row',marginTop:25 }}>
                 <BarreDeRecherche value={lookBrewery} setValue={setLookBrewery} placeholder={'Recherche de Brasseries'}></BarreDeRecherche>
+                <Pressable style={{flex:1}}onPress={bouttonRecheche}>
+                    <Image style={{height:25, resizeMode: 'contain',borderColor:'black',borderWidth:1,width:42,marginHorizontal:25 }} source={require('../data/images/search.png')}></Image>
+                </Pressable>
             </View> 
             <View style={{ padding:10,flex:1}}>
                 <AfficherBrewery goNav={props.goNav}></AfficherBrewery>
