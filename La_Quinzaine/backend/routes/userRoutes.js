@@ -11,9 +11,9 @@ const {
 const userMiddleware = require('../middleware/users.js');
 //======================LOGIN + SIGN IN =======================//
 
-router.get("/", checkToken, getUsers);
+router.get("/", getUsers);
 router.post("/", createUser);
-router.get("/:id", checkToken, getUserByUserId);
+router.get("/:id", getUserByUserId);
 router.post("/login", login);
 router.patch("/", checkToken, updateUsers);
 router.delete("/", checkToken, deleteUser);

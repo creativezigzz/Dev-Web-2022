@@ -2,6 +2,7 @@ require("dotenv").config();
 const {
     getbeerBybeerId,
     getbeerByBrewery,
+    getBeerIfContains,
     getbeers,
     getbeerByType,
     create,
@@ -39,13 +40,28 @@ module.exports = {
         });
     },
     getbeerBybeerId: (req, res) => {
-        getbeerBybeerId((err, results) => {
+        const id = req.params.id;
+        getbeerBybeerId(id,(err, results) => {
                 if (err) {
                     console.log(err);
                     return res.status(405);
                 }
                 return res.json({
-                    success:1,
+                    success: 1,
+                    data: results
+                })
+            }
+        )
+    },
+    getbeerIfContains: (req, res) => {
+        const contain = req.params.contain;
+        getBeerIfContains(contain ,(err, results) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(405);
+                }
+                return res.json({
+                    success: 1,
                     data: results
                 })
             }

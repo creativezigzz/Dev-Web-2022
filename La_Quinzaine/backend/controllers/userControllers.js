@@ -63,7 +63,8 @@ module.exports = {
         });
     },
     getUserByUserId: (req, res) => {
-        const id = req.body.idUser;
+        const id = req.params.id;
+        console.log(id);
         getUserByUserId(id, (err, results) => {
             if (err) {
                 console.log(err);
