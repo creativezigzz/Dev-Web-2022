@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Pressable, View, Text, FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { useState,useEffect } from "react";
+import { Pressable, View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import BarreDeRecherche from "../components/BarreDeRecherche";
 import {postData, getData} from "../context/fetchContext"
 
@@ -8,19 +8,18 @@ const {signal} = controller;
 
 const MyBeers = (props) => {
 
-    const beer = getData('http://localhost:3000/api/beers/')
-        .then(res => setBeerList(res.data));
 
-    const [lookBeer, setLookBeer] = useState('');
-    const [beerList, setBeerList] = useState()  // ICI METTRE FETCH DE TOUTES LES BIERES PAR ORDRE ALPHABETIQUE MAJEUR ET QUANTITE MINEUR DANS LE USESTATE()
 
+    useEffect(() => {
+        getData('http://localhost:3000/api/beers/').then(data => setBeerList(data.data));    // add conditional check
+    }, []);
+
+
+
+    const [lookBeer, setLookBeer] = useState(''); 
+    const [beerList,setBeerList]=useState([])
     const goNav = props.goNav;
 
-    const bouttonRecheche = () => {
-        setBeerList(lookBeer)//quand on appuis on va mettre la variable lookbeer dans un fetch qui va retourner les bières commençant par looBeer
-                             //secondu le resultat ud fetch doit aller dans setBeerList(ici).
-
-    }
     const AfficherBeer = () => {
         return (
             <View>
@@ -43,6 +42,7 @@ const MyBeers = (props) => {
     const AfficherInfoBeer = () => {
 
 
+
         return (
             <View style={{padding: 5, flexDirection: 'row', marginBottom: 5}}>
 
@@ -58,12 +58,19 @@ const MyBeers = (props) => {
 
 
     const BeerInfo = (props) => {
-
+        console.log(props.source);
+        console.log(props.beerName);
         const onClick = () => {
             console.log(goNav)
             goNav("Information de la bière", props.beerId, goNav);
         }
 
+        const changeQuantity = (number) =>{
+            if( number >= 100){
+                return (number/100).toString() + 'L';
+            }
+            else return number.toString() + 'cl';
+        }
 
         return (
             <View>
@@ -94,13 +101,13 @@ const MyBeers = (props) => {
                     }} source={require('../data/images/search.png')}></Image>
                 </Pressable>
             </View>
-            <View style={{padding: 10, flex: 1}}>
+            <View style={{ padding: 10, flex: 1 }}>
                 <AfficherBeer goNav={props.goNav}></AfficherBeer>
             </View>
             <View>
             </View>
 
-        </View>
+        </View >
 
     )
 }
