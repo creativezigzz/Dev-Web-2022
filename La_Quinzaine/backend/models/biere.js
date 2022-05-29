@@ -35,8 +35,8 @@ module.exports = {
     },
     getbeerByBrewery: (idBrewery, callBack) => {
         pool.query(
-            `select * from beer where pseudo = ?`,
-            [pseudo],
+            `select * from beer where idBrewery = ?`,
+            [idBrewery],
             (error, results, fields) => {
                 if (error) {
                     callBack(error);
@@ -47,7 +47,7 @@ module.exports = {
     },
     getbeerBybeerId: (id, callBack) => {
         pool.query(
-            `select pseudo, email, password, idbeer from beer where idbeer = ?`,
+            `select idBrewery, idType, beerName, degree, isNew from beer where idBeer = ?`,
             [id],
             (error, results, fields) => {
                 if (error) {
@@ -59,7 +59,7 @@ module.exports = {
     },
     getbeers: callBack => {
         pool.query(
-            `select pseudo, email, password, idbeer, token from beer`,
+            `select idBeer, idBrewery, idType, beerName, degree, isNew from beer`,
             [],
             (error, results, fields) => {
                 if (error) {
@@ -71,11 +71,11 @@ module.exports = {
     },
     updatebeer: (data, callBack) => {
         pool.query(
-            `update beer set pseudo=?, email=?, password=? where idbeer = ?`,
+            `update beer set degree=?, beerName=?, price=? where idbeer = ?`,
             [
-                data.pseudo,
-                data.email,
-                data.password
+                data.degree,
+                data.beerName,
+                data.price
             ],
             (error, results, fields) => {
                 if (error) {
@@ -86,9 +86,10 @@ module.exports = {
         );
     },
     deletebeer: (data, callBack) => {
+
         pool.query(
             `delete from beer where idbeer = ?`,
-            [data.id],
+            [data.idBeer],
             (error, results, fields) => {
                 if (error) {
                     callBack(error);
