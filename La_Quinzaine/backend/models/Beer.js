@@ -38,4 +38,3 @@ class Beer{
         return db.execute(sql);
     }
 }
-module.exports = Beer;

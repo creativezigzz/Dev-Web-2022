@@ -9,8 +9,13 @@ const LogInScreen = () =>{
     /* const [isSign,setSign] = useState();  A SUPPRIMER ?*/
 
     const onSignInPressed = () =>{
-        const url='http://localhost:3000/user/';
-        fetch(url)
+        const url='http://localhost:3000/user/login';
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            }
+        })
             .then(response => response.json())  
             .then(json => test(json));   
     }
