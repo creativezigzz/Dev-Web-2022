@@ -3,19 +3,14 @@ import {Pressable, View, Text, FlatList, Image, StyleSheet, TouchableOpacity} fr
 import BarreDeRecherche from "../components/BarreDeRecherche";
 import {postData, getData} from "../context/fetchContext"
 
-const controller = new AbortController();
-const {signal} = controller;
-
 const MyBeers = (props) => {
-
-
-    useEffect(() => {
-        getData('http://localhost:3000/api/beers/'+lookBeer).then(data => setBeerList(data.data));    // add conditional check
-    }, []); 
-      
-
     const [lookBeer, setLookBeer] = useState('');
     const [beerList, setBeerList] = useState()  // ICI METTRE FETCH DE TOUTES LES BIERES PAR ORDRE ALPHABETIQUE MAJEUR ET QUANTITE MINEUR DANS LE USESTATE()
+    
+    useEffect(() => {
+        getData('http://localhost:3000/api/beers/'+lookBeer).then(data => setBeerList(data.data)) 
+        console.log(lookBeer)   // add conditional check
+    },[lookBeer]) 
 
     const goNav = props.goNav;
     
@@ -56,10 +51,7 @@ const MyBeers = (props) => {
 
 
     const BeerInfo = (props) => {
-        console.log(props.source);
-        console.log(props.beerName);
         const onClick = () => {
-            console.log(goNav)
             goNav("Information de la bière", props.beerId, goNav);
         }
 

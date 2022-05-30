@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import { Pressable, View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { listBieres } from "../data/biereList";
 import BarreDeRecherche from "../components/BarreDeRecherche";
+import {postData, getData} from "../context/fetchContext"
 
 const MyAdmin = (props) => {
     const [lookBeer, setLookBeer] = useState('');
-    const [beerList,setBeerList]=useState('rien')  // ICI METTRE FETCH DE TOUTES LES BIERES PAR ORDRE ALPHABETIQUE MAJEUR ET QUANTITE MINEUR DANS LE USESTATE()
+    const [beerList,setBeerList]=useState()  // ICI METTRE FETCH DE TOUTES LES BIERES PAR ORDRE ALPHABETIQUE MAJEUR ET QUANTITE MINEUR DANS LE USESTATE()
    
+    useEffect(() => {
+        getData('http://localhost:3000/api/beers/'+lookBeer).then(data => setBeerList(data.data)) 
+    },[lookBeer]) 
+
+
     const goNav = props.goNav;
 
     const bouttonRecheche = () => {
@@ -22,7 +28,7 @@ const MyAdmin = (props) => {
             <View>
                 <AfficherInfoBiere></AfficherInfoBiere>
                 <FlatList
-                    data={listBieres}
+                    data={beerList}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) =>
                         <BiereInfo beerId={item.id} beerName={item.beerName} degree={item.degree}
