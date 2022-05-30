@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Image, Button, View, Text, EventEmitter, StyleSheet, Pressable, ScrollView, ImageBackground, TouchableOpacity } from 'react-native';
 import { listBieres } from "../data/biereList";
 import { listBrewery } from '../data/breweryList';
-import {getData,postData} from '../context/fetchContext'
+
 const BeerPage = ({ route }) => {
 
-    let dataBeer;
-    getData("http://localhost:3000/api/beers/id/" + (route.params.paramKey)).then(res => dataBeer = res.data); // ATTENTION ICI JE PRENDS  L'INDEX DU TABLEAU mais je dois prendre l'id de la biere
-    //let url = dataBeer.urlImage // require(urlImage) de la biere stockée
-    //let idBrewery = breweryOfTheBeer(dataBeer.breweryName) // id de la brasserie stockée
-    console.log(dataBeer.idBrewery)
+    let dataBeer = listBieres[route.params.paramKey-1]; 
+    let url = dataBeer.urlImage // require(urlImage) de la biere stockée  
+    let idBrewery = breweryOfTheBeer(dataBeer.breweryName) // id de la brasserie stocké
     let goNav = route.params.paramFun;
 
     //fonction qui renvoie l'id de la brasserie correspondante à la bière
@@ -94,7 +92,7 @@ const BeerPage = ({ route }) => {
                 <Text style={{ fontSize: 30, fontStyle: 'bold', textAlign: 'center', marginTop: 15, textDecorationLine: 'underline' }}>{dataBeer.beerName}</Text>
                 <View style={{ flexDirection: 'row', marginTop: 30 }}>
                     <View style={{ flex: 2, marginLeft: 20 }}>
-                        {/*<Image style={{ height: 235, width: 80 }} source={url}></Image>*/}
+                        <Image style={{ height: 235, width: 80 }} source={url}></Image>
                     </View>
                     <View style={{ flex: 3, flexDirection: 'column', marginTop: 10 }}>
                         <Text style={style.text_information}>Type de bière : {dataBeer.typeName}</Text>
