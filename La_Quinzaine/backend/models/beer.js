@@ -2,8 +2,8 @@ const pool = require("../config/db");
 module.exports = {
     create: (data, callBack) => {
         pool.query(
-            `insert into beer(idBrewery, idType, beerName, degree, isNew, price, quantite)
-             values (?, ?, ?, ?, ?, ?, ?)`,
+            `insert into beer(idBrewery, idType, beerName, degree, isNew, price, quantite,imageUrl)
+             values (?, ?, ?, ?, ?, ?, ?,?)`,
             [
                 data.idBrewery,
                 data.idType,
@@ -11,7 +11,8 @@ module.exports = {
                 data.degree,
                 data.isNew,
                 data.price,
-                data.quantite
+                data.quantite,
+                data.imageUrl
 
             ],
             (error, results, fields) => {
@@ -67,7 +68,7 @@ module.exports = {
     getBeerIfContains: (contain, callBack) => {
 
         pool.query(
-            `select idBrewery, idType, beerName, degree, isNew, price, quantite
+            `select idBrewery, idType, beerName, degree, isNew, price, quantite,imageUrl
              from beer
              where beerName like ?`,
             ['%' + contain + '%'],
@@ -82,7 +83,7 @@ module.exports = {
     ,
     getbeerBybeerId: (id, callBack) => {
         pool.query(
-            `select idBrewery, idType, beerName, degree, isNew, price
+            `select idBrewery, idType, beerName, degree, isNew, price,imageUrl
              from beer
              where idBeer = ?`,
             [id],
@@ -103,7 +104,8 @@ module.exports = {
                     degree,
                     isNew,
                     price,
-                    quantite
+                    quantite,
+                    imageUrl
              from beer
              order by beerName, quantite`,
             [],

@@ -9,6 +9,6 @@ router
     .post(beerControllers.createBeer);
 
 
-//router.route("/:idBeer").get(beerControllers.getbeerBybeerId);
+router.route("/id/:id").get(beerControllers.getbeerBybeerId);
 router.route("/:contain").get(beerControllers.getbeerIfContains);
 module.exports = router;
