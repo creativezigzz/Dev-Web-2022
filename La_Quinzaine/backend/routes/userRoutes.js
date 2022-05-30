@@ -9,10 +9,11 @@ const {
     deleteUser
 } = require("../controllers/userControllers");
 const userMiddleware = require('../middleware/users.js');
+const {validateRegister} = require("../middleware/users");
 //======================LOGIN + SIGN IN =======================//
 
 router.get("/", getUsers);
-router.post("/", createUser);
+router.post("/", validateRegister,createUser);
 router.get("/:id", getUserByUserId);
 router.post("/login", login);
 router.patch("/", checkToken, updateUsers);
