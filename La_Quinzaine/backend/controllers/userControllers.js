@@ -8,8 +8,8 @@ const {
     updateUser,
     deleteUser
 } = require("../models/users");
-const { hashSync, genSaltSync, compareSync } = require("bcrypt");
-const { sign } = require("jsonwebtoken");
+const {hashSync, genSaltSync, compareSync} = require("bcrypt");
+const {sign} = require("jsonwebtoken");
 
 module.exports = {
     createUser: (req, res) => {
@@ -20,19 +20,47 @@ module.exports = {
         /*const person = getUserByUserPseudo(body.pseudo,(err, results) => {
             if(!results){}
         });*/
-        create(body, (err, results) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).json({
-                    success: 0,
-                    message: "Database connection errror"
-                });
+        getUserByUserPseudo(body.pseudo, (err, results) => {
+                if (err) {
+                    console.log(err);
+                }
+                if (results) {
+                    return res.status(405).json({
+                        success: 0,
+                        statusCode: 405,
+                        message: "A person with this pseudo already exist, please provide another pseudo"
+                    });
+                }
+                getUserByUserEmail(body.email, (err, results) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        if (results) {
+                            return res.status(405).json({
+                                success: 0,
+                                statusCode: 405,
+                                message: "A person with this email already exist, please provide another email"
+                            });
+                        }
+                        create(body, (err, results) => {
+                            if (err) {
+                                console.log(err);
+                                return res.status(500).json({
+                                    success: 0,
+                                    message: "Database connection errror"
+                                });
+                            }
+                            return res.status(200).json({
+                                success: 1,
+                                data: results
+                            });
+                        });
+                    }
+                )
+
             }
-            return res.status(200).json({
-                success: 1,
-                data: results
-            });
-        });
+        )
+
     },
     login: (req, res) => {
         const body = req.body;
@@ -43,25 +71,26 @@ module.exports = {
             }
             if (!results) {
                 return res.status(405).json({
-                    success: 0,
+                    success: false,
+                    statusCode: 405,
                     message: "Invalid pseudo or password"
                 });
             }
             const result = compareSync(body.password, results.password);
             if (result) {
                 results.password = undefined;
-                const jsontoken = sign({ result: results }, process.env.JWT_KEY, {
+                const jsontoken = sign({result: results}, process.env.JWT_KEY, {
                     expiresIn: "1h"
                 });
                 return res.status(200).json({
-                    success: true,
+                    success: 1,
                     message: "Login successfully",
                     token: jsontoken,
                     statusCode: 200
                 });
             } else {
                 return res.status(405).json({
-                    success: false,
+                    success: 0,
                     statusCode: 405,
                     message: "Invalid email or password"
                 });
@@ -108,7 +137,12 @@ module.exports = {
         updateUser(body, (err, results) => {
             if (err) {
                 console.log(err);
-                return;
+                return res.status(405).json(
+                    {
+                        success: 0,
+                        message: "Cannot update the client"
+                    }
+                )
             }
             return res.json({
                 success: 1,
