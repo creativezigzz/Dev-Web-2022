@@ -1,19 +1,19 @@
-import React, {useState,useEffect} from "react";
-import {Pressable, View, Text, FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from "react";
+import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import BarreDeRecherche from "../components/BarreDeRecherche";
-import {postData, getData} from "../context/fetchContext"
+import {getData} from "../context/fetchContext"
 
 const MyBeers = (props) => {
     const [lookBeer, setLookBeer] = useState('');
     const [beerList, setBeerList] = useState()  // ICI METTRE FETCH DE TOUTES LES BIERES PAR ORDRE ALPHABETIQUE MAJEUR ET QUANTITE MINEUR DANS LE USESTATE()
-    
+
     useEffect(() => {
-        getData('http://localhost:3000/api/beers/'+lookBeer).then(data => setBeerList(data.data)) 
+        getData('http://localhost:3000/api/beers/' + lookBeer).then(data => setBeerList(data.data))
         console.log(lookBeer)   // add conditional check
-    },[lookBeer]) 
+    }, [lookBeer])
 
     const goNav = props.goNav;
-    
+
     const AfficherBeer = () => {
         return (
             <View>
@@ -25,7 +25,7 @@ const MyBeers = (props) => {
                     keyExtractor={(item) => item.idBeer}
                     renderItem={({item}) =>
                         <BeerInfo beerId={item.idBeer} beerName={item.beerName} degree={item.degree}
-                                  price={item.price} quantity={item.quantite} source={item.imageUrl}></BeerInfo>
+                                  price={item.price} quantite={item.quantite} source={item.imageUrl}></BeerInfo>
                     }
 
                 />
@@ -57,11 +57,10 @@ const MyBeers = (props) => {
             goNav("Information de la bière", props.beerId, goNav);
         }
 
-        const changeQuantity = (number) =>{ 
-            if( number >= 100){
-                return (number/100).toString() + 'L';
-            }
-            else return number.toString() + 'cl';
+        const changeQuantity = (number) => {
+            if (number >= 100) {
+                return (number / 100).toString() + 'L';
+            } else return number.toString() + 'cl';
         }
 
         return (
@@ -70,9 +69,9 @@ const MyBeers = (props) => {
                     <Text style={style.nameBiereList}>{props.beerName}</Text>
                     <Text style={style.textBiereList}>{props.degree}</Text>
                     <Text style={style.textBiereList}>{props.price} €</Text>
-                    <Text style={style.textBiereList}>{changeQuantity(props.quantity)}</Text>
+                    <Text style={style.textBiereList}>{changeQuantity(props.quantite)}</Text>
                     <Image style={style.imageBiere} source={require('../data/images/Bush-Blonde-33cl.webp')}></Image>
-                    
+
                 </TouchableOpacity>
             </View>
         )
@@ -82,7 +81,7 @@ const MyBeers = (props) => {
         <View style={{flex: 1}}>
             <View style={{height: 25, flexDirection: 'row', marginTop: 25}}>
                 <BarreDeRecherche style={{flex: 3}} value={lookBeer} setValue={setLookBeer}
-                 placeholder={'Recherche de Biere'}></BarreDeRecherche>
+                                  placeholder={'Recherche de Biere'}></BarreDeRecherche>
             </View>
             <View style={{padding: 10, flex: 1}}>
                 <AfficherBeer goNav={props.goNav}></AfficherBeer>
