@@ -76,10 +76,7 @@ const AuthProvider = ({children}) => {
             console.log('isLogged error', e)
         }
     }
-    useEffect(() => {
-            isLoggedIn();
-        },
-        [])
+
     return (
         <Provider
             value={{
@@ -88,6 +85,7 @@ const AuthProvider = ({children}) => {
                 setAuthState,
                 logout,
                 isAuthenticated,
+                isLoggedIn,
                 onSignInPressed,
                 username,
                 password,
