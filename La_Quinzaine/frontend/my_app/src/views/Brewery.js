@@ -59,7 +59,7 @@ const MyBrewery = (props) => {
             <View>
                 <TouchableOpacity style={{flexDirection: 'row'}} onPress={onClick}>
                     <Text style={style.nameBreweryList}>{props.breweryName}</Text>
-                    <Image style={style.imageBrewery} source={require('../data/images/TK-brewery.png')}></Image>
+                    <Image style={style.imageBrewery} source={require('../data/images/TK-1L.webp')}></Image>
                 </TouchableOpacity>
             </View>
         )

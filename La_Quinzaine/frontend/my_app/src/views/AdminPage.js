@@ -110,7 +110,7 @@ const MyAdmin = (props) => {
     }
 
     const ChangeBeerButton = () => {
-        return (null)
+        return null
     }
 
     return (

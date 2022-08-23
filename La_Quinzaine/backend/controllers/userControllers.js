@@ -54,13 +54,15 @@ module.exports = {
                     expiresIn: "1h"
                 });
                 return res.status(200).json({
-                    success: 1,
-                    message: "login successfully",
-                    token: jsontoken
+                    success: true,
+                    message: "Login successfully",
+                    token: jsontoken,
+                    statusCode: 200
                 });
             } else {
                 return res.status(405).json({
-                    success: 0,
+                    success: false,
+                    statusCode: 405,
                     message: "Invalid email or password"
                 });
             }

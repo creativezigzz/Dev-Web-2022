@@ -7,21 +7,23 @@ import MyBeers from '../views/Beers';
 import MyBrewery from '../views/Brewery'
 import MyAdmin from './AdminPage';
 import LogOutScreen from './LogOutScreen';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
+function Menu({navigation}) {
 
-function Menu({ navigation }) {
+    const [adminLogIn, setAdminLogIn] = useState(false);
+    const [connect, setConnect] = useState(false);
 
-    const [adminLogIn, setAdminLogIn] = useState(true);
-    const [connect, SetConnect] = useState(false);
+
 
     const AdminMenu = () => {
-        if (adminLogIn == true)
+        if (adminLogIn === true)
             return (
                 <MyMenuButton style={style.pressable_menu} where={'Admin'} onClickMyButton={goNavigate}></MyMenuButton>
             )
-        else return (null);
+        else return null;
     }
 
     const goNavigate = (where) => {
@@ -33,16 +35,18 @@ function Menu({ navigation }) {
         if (connect) {
             return (
 
-                <MyMenuButton style={style.pressable_menu} where={'Deconnexion'} onClickMyButton={goNavigate}></MyMenuButton>
+                <MyMenuButton style={style.pressable_menu} where={'Deconnexion'}
+                              onClickMyButton={goNavigate}></MyMenuButton>
 
 
             )
-        }
-        else
+        } else
             return (
                 <View>
-                    <MyMenuButton style={style.pressable_menu} where={'Connexion'} onClickMyButton={goNavigate}></MyMenuButton>
-                    <MyMenuButton style={style.pressable_menu} where={'Inscription'} onClickMyButton={goNavigate}></MyMenuButton>
+                    <MyMenuButton style={style.pressable_menu} where={'Connexion'}
+                                  onClickMyButton={goNavigate}></MyMenuButton>
+                    <MyMenuButton style={style.pressable_menu} where={'Inscription'}
+                                  onClickMyButton={goNavigate}></MyMenuButton>
                 </View>
             )
     }
@@ -62,18 +66,19 @@ function Menu({ navigation }) {
                     </Pressable>
                 </View>
             )
-        }
-        else {
+        } else {
             return (
                 <View>
                     <Pressable onPress={() => setOpen(!open)}>
                         <Text style={style.pressable_menu}>Les Cartes</Text>
                     </Pressable>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Image style={{ flex: 1, height: 160 }} source={require('../data/images/font.png')}></Image>
-                        <View style={{ flexDirection: 'column', flex: 8 }}>
-                            <MyMenuButton style={style.pressable_sub_menu} where={props.where} onClickMyButton={goNavigate}></MyMenuButton>
-                            <MyMenuButton style={style.pressable_sub_menu} where={props.where2} onClickMyButton={goNavigate}></MyMenuButton>
+                    <View style={{flexDirection: 'row'}}>
+                        <Image style={{flex: 1, height: 160}} source={require('../data/images/font.png')}></Image>
+                        <View style={{flexDirection: 'column', flex: 8}}>
+                            <MyMenuButton style={style.pressable_sub_menu} where={props.where}
+                                          onClickMyButton={goNavigate}></MyMenuButton>
+                            <MyMenuButton style={style.pressable_sub_menu} where={props.where2}
+                                          onClickMyButton={goNavigate}></MyMenuButton>
                         </View>
                     </View>
                 </View>
@@ -82,7 +87,7 @@ function Menu({ navigation }) {
     }
 
     return (
-        <View style={{ alignItems: 'center' }}>
+        <View style={{alignItems: 'center'}}>
             <ScrollView style={style.scroll_view}>
                 <BuildMySubMenu where={'Carte des Bières'} where2={'Carte des Brasseries'}></BuildMySubMenu>
                 {/*<MyMenuButton style={style.pressable_menu} where={'Evenement'} onClickMyButton={goNavigate}></MyMenuButton>
