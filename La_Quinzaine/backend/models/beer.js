@@ -15,7 +15,7 @@ module.exports = {
                 data.imageUrl
 
             ],
-            (error, results, fields) => {
+            (error, results) => {
                 if (error) {
                     callBack(error);
                 }
@@ -23,13 +23,13 @@ module.exports = {
             }
         );
     },
-    getbeerByType: (idType, callBack) => {
+    getBeerByType: (idType, callBack) => {
         pool.query(
             `select *
              from beer
              where idType = ?`,
             [idType],
-            (error, results, fields) => {
+            (error, results) => {
                 if (error) {
                     callBack(error);
                 }
@@ -37,7 +37,7 @@ module.exports = {
             }
         );
     },
-    getbeerByBrewery: (idBrewery, callBack) => {
+    getBeerByBrewery: (idBrewery, callBack) => {
         pool.query(
             `select *
              from beer
@@ -72,7 +72,7 @@ module.exports = {
              from beer
              where beerName like ?`,
             ['%' + contain + '%'],
-            (error, results, fields) => {
+            (error, results) => {
                 if (error) {
                     callBack(error);
                 }
@@ -81,21 +81,22 @@ module.exports = {
         );
     }
     ,
-    getbeerBybeerId: (id, callBack) => {
+    getBeerByBeerId: (id, callBack) => {
         pool.query(
             `select idBrewery, idType, beerName, degree, isNew, price,imageUrl
              from beer
              where idBeer = ?`,
             [id],
-            (error, results, fields) => {
+            (error, results) => {
                 if (error) {
                     callBack(error);
                 }
-                return callBack(null, results[0]);
+                    return callBack(null, results[0]);
+
             }
         );
     },
-    getbeers: callBack => {
+    getBeers: callBack => {
         pool.query(
             `select idBeer,
                     idBrewery,
@@ -117,7 +118,7 @@ module.exports = {
             }
         );
     },
-    updatebeer: (data, callBack) => {
+    updateBeer: (data, callBack) => {
         pool.query(
             `update beer
              set degree=?,
@@ -137,13 +138,13 @@ module.exports = {
             }
         );
     },
-    deletebeer: (data, callBack) => {
+    deleteBeer: (idBeer, callBack) => {
 
         pool.query(
             `delete
              from beer
-             where idbeer = ?`,
-            [data.idBeer],
+             where idBeer = ?`,
+            [idBeer],
             (error, results, fields) => {
                 if (error) {
                     callBack(error);

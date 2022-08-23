@@ -1,12 +1,11 @@
 require("dotenv").config();
 const {
-    getbeerBybeerId,
-    getbeerByBrewery,
+    getBeerByBeerId,
     getBeerIfContains,
-    getbeers,
-    getbeerByType,
+    getBeers,
     create,
-    deletebeer
+    update,
+    deleteBeer
 } = require("../models/beer")
 
 module.exports = {
@@ -28,7 +27,7 @@ module.exports = {
         });
     },
     getAllBeers: (req, res) => {
-        getbeers((err, results) => {
+        getBeers((err, results) => {
             if (err) {
                 console.log(err);
                 return;
@@ -39,9 +38,32 @@ module.exports = {
             });
         });
     },
-    getbeerBybeerId: (req, res) => {
+    getBeerByBeerId: (req, res) => {
         const id = req.params.id;
-        getbeerBybeerId(id,(err, results) => {
+
+        getBeerByBeerId(id, (err, results) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(405);
+                }
+                if (!results) {
+                    return res.json({
+                        success: 0,
+                        message: "Record not Found"
+                    });
+                }
+                return res.json({
+                    success: 1,
+                    data: results
+                })
+
+
+            }
+        )
+    },
+    getBeerIfContains: (req, res) => {
+        const contain = req.params.contain;
+        getBeerIfContains(contain, (err, results) => {
                 if (err) {
                     console.log(err);
                     return res.status(405);
@@ -53,18 +75,40 @@ module.exports = {
             }
         )
     },
-    getbeerIfContains: (req, res) => {
-        const contain = req.params.contain;
-        getBeerIfContains(contain ,(err, results) => {
-                if (err) {
-                    console.log(err);
-                    return res.status(405);
-                }
-                return res.json({
-                    success: 1,
-                    data: results
+    deleteBeer: (req, res) => {
+        const id = req.params.id;
+        getBeerByBeerId(id, (err, results) => {
+            if (err) {
+                console.log(err);
+            }
+            if (!results) {
+                return res.status(404).json({
+                    success: 0,
+                    statusCode: 404,
+                    message: "Beer not in the database"
                 })
             }
-        )
+            else {
+                const infoBeer = results
+                deleteBeer(id, (err) => {
+                    if (err) {
+                        console.log(err);
+                        return res.json({
+                            success: 0,
+                            status: 405,
+                            message: 'The Beer was not deleted'
+                        });
+                    }
+                    return res.json({
+                        success: 1,
+                        message: 'Beer successfully deleted',
+                        data: infoBeer
+                    })
+                })
+            }
+
+        })
+
+
     }
 }
