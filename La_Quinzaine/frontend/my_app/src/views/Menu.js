@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import { View, Text, EventEmitter, Image, StyleSheet, Pressable, ScrollView, ImageBackground } from 'react-native';
 import MyMenuButton from '../components/menu_button';
 import SignInScreen from '../views/SignInScreen';
@@ -7,7 +7,8 @@ import MyBeers from '../views/Beers';
 import MyBrewery from '../views/Brewery'
 import MyAdmin from './AdminPage';
 import LogOutScreen from './LogOutScreen';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {AuthContext} from "../context/AuthContext";
+import jwtDecode from "jwt-decode";
 
 
 
@@ -15,7 +16,19 @@ function Menu({navigation}) {
 
     const [adminLogIn, setAdminLogIn] = useState(false);
     const [connect, setConnect] = useState(false);
-
+    const {
+        authState,
+        getUserToken,
+        setAuthState,
+        logout,
+        isAuthenticated,
+        onSignInPressed,
+        username,
+        password,
+        setUsername,
+        setPassword,
+        isLoggedIn
+    } = useContext(AuthContext)
 
 
     const AdminMenu = () => {
@@ -29,16 +42,17 @@ function Menu({navigation}) {
     const goNavigate = (where) => {
         navigation.navigate(where);
     }
-
+    useEffect(() => {
+            isLoggedIn();
+        },
+        [])
     const LogScreenMenu = () => {
 
-        if (connect) {
+        if (isAuthenticated () === 'true') {
+            console.log(jwtDecode(getUserToken()))
             return (
-
                 <MyMenuButton style={style.pressable_menu} where={'Deconnexion'}
                               onClickMyButton={goNavigate}></MyMenuButton>
-
-
             )
         } else
             return (
@@ -58,7 +72,7 @@ function Menu({navigation}) {
         const sideImage = '../data/images/font.png';
 
 
-        if (open == false) {
+        if (open === false) {
             return (
                 <View>
                     <Pressable onPress={() => setOpen(!open)}>
