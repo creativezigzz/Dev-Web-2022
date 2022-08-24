@@ -8,8 +8,7 @@ const MyBeers = (props) => {
     const [beerList, setBeerList] = useState()  // ICI METTRE FETCH DE TOUTES LES BIERES PAR ORDRE ALPHABETIQUE MAJEUR ET QUANTITE MINEUR DANS LE USESTATE()
 
     useEffect(() => {
-        getData('http://localhost:3000/api/beers/' + lookBeer).then(data => setBeerList(data.data))
-        console.log(lookBeer)   // add conditional check
+        getData('http://localhost:3000/api/beers/' + lookBeer).then(data => setBeerList(data.data))// add conditional check
     }, [lookBeer])
 
     const goNav = props.goNav;
@@ -54,7 +53,8 @@ const MyBeers = (props) => {
 
         //const url=require(props.source.toString())
         const onClick = () => {
-            goNav("Information de la bière", props.beerId, goNav);
+            console.log(props.beerId);
+            goNav("Information de la bière", props.beerId, goNav); //ICI Y A UN SOUCI A REGLER
         }
 
         const changeQuantity = (number) => {

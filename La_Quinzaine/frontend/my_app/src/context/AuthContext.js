@@ -1,5 +1,5 @@
 //AuthContext.js
-import React, {createContext, useEffect, useState} from 'react';
+import React, {createContext, useState} from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AuthContext = createContext(null);
@@ -13,10 +13,6 @@ const AuthProvider = ({children}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    useEffect(() => {
-
-
-    })
     const logout = async () => {
         await AsyncStorage.removeItem('userToken')
         setAuthState({

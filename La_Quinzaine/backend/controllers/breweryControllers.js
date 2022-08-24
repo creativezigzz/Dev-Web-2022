@@ -1,12 +1,12 @@
 require("dotenv").config();
 const {
-    getBreweryBybreweryId,
-    getbreweryByBrewery,
+    getBreweryByBreweryId,
+    getBreweryByBrewery,
     getBreweryIfContains,
-    getbrewerys,
-    getbreweryByType,
+    getAllBrewery,
+    getBreweryByType,
     create,
-    deletebrewery
+    deleteBrewery
 } = require("../models/brewery")
 
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
             });
         });
     },
-    getBreweryBybreweryId: (req, res) => {
+    getBreweryByBreweryId: (req, res) => {
         const id = req.params.id;
         getBreweryBybreweryId(id,(err, results) => {
                 if (err) {

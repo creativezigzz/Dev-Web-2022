@@ -18,6 +18,7 @@
       <destination value="FILE" />
       <format value="EXCEL" />
       <charset value="windows-1252" />
+      <charset value="windows-1252" />
     </export-instructions>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -28,20 +29,18 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="e82c54b8-371f-44ab-920d-64680676f72c">
-      <console name="laquinzaine" type="STANDARD" schema="laquinzaine" session="Main"><![CDATA[select
+      <console name="laquinzaine" type="STANDARD" schema="laquinzaine" session="Main">select
     u.email,
     u.`idUser`,
     u.`password`,
     u.pseudo,
     u.token
 from
-    `user` u;]]></console>
+    `user` u;</console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="e82c54b8-371f-44ab-920d-64680676f72c" object-ref="consoles/laquinzaine" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="e82c54b8-371f-44ab-920d-64680676f72c" />
@@ -129,7 +128,7 @@ from
           <alternative-statement-delimiter value="" />
         </details>
         <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
-          <object-type-filter use-master-settings="true">
+          <object-type-filter>
             <object-type name="SCHEMA" enabled="true" />
             <object-type name="USER" enabled="true" />
             <object-type name="ROLE" enabled="true" />
@@ -289,8 +288,6 @@ from
           <content-type name="JavaScript" enabled="true" />
           <content-type name="JSON" enabled="true" />
           <content-type name="JSON5" enabled="true" />
-          <content-type name="JSP" enabled="true" />
-          <content-type name="JSPx" enabled="true" />
           <content-type name="YAML" enabled="true" />
         </content-types>
       </qualified-text-editor>

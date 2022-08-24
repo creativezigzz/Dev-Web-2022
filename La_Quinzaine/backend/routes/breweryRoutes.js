@@ -9,6 +9,6 @@ router
     .post(breweryControllers.createBrewery);
 
 
-router.route("/id/:id").get(breweryControllers.getBreweryBybreweryId);
+router.route("/id/:id").get(breweryControllers.getBreweryByBreweryId);
 router.route("/:contain").get(breweryControllers.getBreweryIfContains);
 module.exports = router;

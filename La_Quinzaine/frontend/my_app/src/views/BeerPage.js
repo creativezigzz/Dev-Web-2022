@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Image, Button, View, Text, EventEmitter, StyleSheet, Pressable, ScrollView, ImageBackground, TouchableOpacity } from 'react-native';
 import { listBieres } from "../data/biereList";
 import { listBrewery } from '../data/breweryList';
+import {getData} from "../context/fetchContext";
 
 const BeerPage = ({ route }) => {
 
@@ -13,7 +14,7 @@ const BeerPage = ({ route }) => {
     //fonction qui renvoie l'id de la brasserie correspondante à la bière
     function breweryOfTheBeer(brewery) {
         for (let i = 0; i < listBrewery.length; i++) {
-            if (listBrewery[i].breweryName == brewery) {
+            if (listBrewery[i].breweryName === brewery) {
                 return listBrewery[i].id;
             }
         }

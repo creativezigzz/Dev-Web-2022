@@ -36,7 +36,7 @@ module.exports = {
         );
     }
     ,
-    getBreweryBybreweryId: (id, callBack) => {
+    getBreweryByBreweryId: (id, callBack) => {
         pool.query(
             `select idBrewery, breweryDescript, breweryName, urlImage
              from brewery
@@ -50,7 +50,7 @@ module.exports = {
             }
         );
     },
-    getbrewerys: callBack => {
+    getAllBrewery: callBack => {
         pool.query(
             `select idBrewery, breweryDescript, breweryName, urlImage
              from brewery
@@ -64,7 +64,7 @@ module.exports = {
             }
         );
     },
-    updatebrewery: (data, callBack) => {
+    updateBrewery: (data, callBack) => {
         pool.query(
             `update brewery
              set breweryDescript=?,
@@ -84,7 +84,7 @@ module.exports = {
             }
         );
     },
-    deletebrewery: (data, callBack) => {
+    deleteBrewery: (data, callBack) => {
 
         pool.query(
             `delete

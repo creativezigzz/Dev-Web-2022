@@ -17,9 +17,6 @@ module.exports = {
         const salt = genSaltSync(10);
         body.password = hashSync(body.password, salt);
         //test pour voir si il existe deja un user
-        /*const person = getUserByUserPseudo(body.pseudo,(err, results) => {
-            if(!results){}
-        });*/
         getUserByUserPseudo(body.pseudo, (err, results) => {
                 if (err) {
                     console.log(err);
