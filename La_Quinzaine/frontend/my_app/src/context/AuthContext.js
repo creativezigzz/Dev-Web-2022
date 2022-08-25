@@ -1,37 +1,92 @@
 //AuthContext.js
 import React, {createContext, useState} from 'react';
-import * as Keychain from 'react-native-keychain';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AuthContext = createContext(null);
 const {Provider} = AuthContext;
 
 const AuthProvider = ({children}) => {
     const [authState, setAuthState] = useState({
-        accessToken: null,
-        refreshToken: null,
-        authenticated: null,
+        userToken: '',
+        authenticated: 'false',
     });
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const logout = async () => {
-        await Keychain.resetGenericPassword();
+        await AsyncStorage.removeItem('userToken')
         setAuthState({
-            accessToken: null,
-            refreshToken: null,
-            authenticated: false,
+            userToken: '',
+            authenticated: 'false',
         });
     };
+    const onSignInPressed = async () => {
+        const url = 'http://localhost:3000/api/users/login';
+        const data = {pseudo: `${username}`, password: `${password}`};
 
-    const getAccessToken = () => {
-        return authState.accessToken;
+        console.log(JSON.stringify(data));
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:
+                JSON.stringify(data)
+
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.success) {
+                    setAuthState({
+                        userToken: data.token,
+                        authenticated: 'true'
+                    })
+                }
+
+            })
+            .catch((error) => {
+                console.error('Login Error', error.message)
+            })
+        await AsyncStorage.setItem('isAuth', isAuthenticated())
+        await AsyncStorage.setItem('userToken', getUserToken())
+
+
+    }
+
+    const getUserToken = () => {
+        return authState.userToken;
     };
+    const isAuthenticated = () => {
+        return authState.authenticated
+    }
+    const isLoggedIn = async () => {
+        try {
+            let userToken = await AsyncStorage.getItem('userToken');
+            let isAuth = await AsyncStorage.getItem('isAuth')
+            setAuthState({
+                userToken: userToken,
+                authenticated: isAuth
+            })
+        } catch (e) {
+            console.log('isLogged error', e)
+        }
+    }
 
     return (
         <Provider
             value={{
                 authState,
-                getAccessToken,
+                getUserToken,
                 setAuthState,
                 logout,
+                isAuthenticated,
+                isLoggedIn,
+                onSignInPressed,
+                username,
+                password,
+                setUsername,
+                setPassword,
             }}>
             {children}
         </Provider>

@@ -7,7 +7,7 @@ import { Beers, Evenement, Parametres, Connexion, Inscription, Brewery,Admin ,De
 import BeerPage from './src/views/BeerPage';
 import BreweryPage from './src/views/BreweryPage';
 import AdminBeerPage from './src/views/AdminBeerPage';
-
+import {AuthProvider,AuthContext} from "./src/context/AuthContext";
 
 
 const Stack = createNativeStackNavigator();
@@ -15,22 +15,24 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Menu">
-        <Stack.Screen name="Menu" component={Menu} />
-        <Stack.Screen name="Carte des Bières" component={Beers} />
-        <Stack.Screen name="Evenement" component={Evenement} />
-        <Stack.Screen name="Parametres" component={Parametres} />
-        <Stack.Screen name="Connexion" component={Connexion} />
-        <Stack.Screen name="Inscription" component={Inscription} />
-        <Stack.Screen name="Information de la bière" component={BeerPage} />
-        <Stack.Screen name="Carte des Brasseries" component={Brewery} />
-        <Stack.Screen name="Information de la brasserie" component={BreweryPage} />
-        <Stack.Screen name="Admin" component={Admin} />
-        <Stack.Screen name="Deconnexion" component={Deconnexion} />
-        <Stack.Screen name="AdminBeerPage" component={AdminBeerPage} />
-      </Stack.Navigator>
-    </NavigationContainer>
+      <AuthProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Menu">
+            <Stack.Screen name="Menu" component={Menu} />
+            <Stack.Screen name="Carte des Bières" component={Beers} />
+            <Stack.Screen name="Evenement" component={Evenement} />
+            <Stack.Screen name="Parametres" component={Parametres} />
+            <Stack.Screen name="Connexion" component={Connexion} />
+            <Stack.Screen name="Inscription" component={Inscription} />
+            <Stack.Screen name="Information de la bière" component={BeerPage} />
+            <Stack.Screen name="Carte des Brasseries" component={Brewery} />
+            <Stack.Screen name="Information de la brasserie" component={BreweryPage} />
+            <Stack.Screen name="Admin" component={Admin} />
+            <Stack.Screen name="Deconnexion" component={Deconnexion} />
+            <Stack.Screen name="AdminBeerPage" component={AdminBeerPage} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AuthProvider>
   );
 }
 

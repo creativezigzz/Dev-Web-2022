@@ -6,9 +6,14 @@ const router = express.Router();
 router
     .route("/")
     .get(beerControllers.getAllBeers)
-    .post(beerControllers.createBeer);
+    .post(beerControllers.createBeer)
 
 
-router.route("/id/:id").get(beerControllers.getbeerBybeerId);
-router.route("/:contain").get(beerControllers.getbeerIfContains);
+
+router.route("/id/:id")
+    .get(beerControllers.getBeerByBeerId)
+    .delete(beerControllers.deleteBeer)
+
+router.route("/:contain").get(beerControllers.getBeerIfContains);
+
 module.exports = router;

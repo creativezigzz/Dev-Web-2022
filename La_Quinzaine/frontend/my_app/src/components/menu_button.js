@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button,View, Text, EventEmitter, Pressable } from 'react-native';
+import {View, Text, Pressable } from 'react-native';
 
 
 const MyMenuButton = (props) => {

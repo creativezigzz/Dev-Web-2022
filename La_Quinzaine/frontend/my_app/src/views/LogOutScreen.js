@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
-import { Button, View, Text, EventEmitter } from 'react-native';
+import React, {useContext} from 'react';
+import { View, Text} from 'react-native';
 import MyButton from '../components/my_button';
-import MyTextInput from '../components/text_input';
+import {AuthContext} from "../context/AuthContext";
+
+
 
 const LogOutScreen = () => {
+
+    const {
+        logout,
+    } = useContext(AuthContext)
+
     return (
+
         <View>
-            <Text>salut</Text>
+            <MyButton onPress={logout} text="Oui"></MyButton>
+            <Text> Succeffuly logged out </Text>
         </View>
     )
 }
