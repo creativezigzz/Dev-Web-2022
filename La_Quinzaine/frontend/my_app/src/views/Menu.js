@@ -27,12 +27,13 @@ function Menu({navigation}) {
         password,
         setUsername,
         setPassword,
-        isLoggedIn
+        isLoggedIn,
+        isRoles
     } = useContext(AuthContext)
 
 
     const AdminMenu = () => {
-        if (adminLogIn === true)
+        if (isRoles() === 'admin')
             return (
                 <MyMenuButton style={style.pressable_menu} where={'Admin'} onClickMyButton={goNavigate}></MyMenuButton>
             )

@@ -8,9 +8,10 @@ const SignInScreen = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [roles, setRoles] = useState('user')
     const onSignInPressed = () =>{
         const url='http://localhost:3000/api/users/';
-        const data = { pseudo: `${username}`, password : `${password}`, email: `${email}`};
+        const data = { pseudo: `${username}`, password : `${password}`, email: `${email}`,roles: `${roles}` };
         //console.log(JSON.stringify(data));
         fetch(url, {
             method: 'POST',
