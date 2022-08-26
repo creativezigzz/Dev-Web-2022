@@ -1,0 +1,15 @@
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (1, 3, 1, 'Smash', 8.5, 1, 4, 25, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (2, 3, 2, 'Ambrasse Temps', 4, 0, 3, 25, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (3, 3, 8, 'Surfine', 4.5, 0, 3, 50, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (4, 3, 5, 'Stout', 3, 1, 4, 25, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (5, 3, 6, 'Blanche-Neuve', 3.5, 0, 3, 25, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (6, 3, 10, 'Temps des cerises', 5, 0, 3, 25, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (7, 4, 1, 'Delta IPA', 7, 0, 4, 33, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (8, 4, 2, 'Grosse Bertha', 6, 0, 4, 33, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (9, 4, 7, 'Baby Shower', 6, 1, 5, 33, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (10, 4, 9, 'Dark Sister', 5, 1, 4, 33, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (11, 4, 1, 'Babylone', 6, 1, 5, 33, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (12, 2, 4, 'Triple Karmeliet', 8.5, 0, 4, 33, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (13, 1, 9, 'Orval', 5, 0, 6, 33, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (14, 5, 3, 'Super 8 IPA', 8, 0, 5, 50, null);
+INSERT INTO laquinzaine.beer (idBeer, idBrewery, idType, beerName, degree, isNew, price, quantite, imageUrl) VALUES (15, 5, 1, 'Pils', 4.5, 0, 3, 50, null);
