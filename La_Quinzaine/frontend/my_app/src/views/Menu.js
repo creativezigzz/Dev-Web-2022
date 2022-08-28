@@ -1,5 +1,5 @@
-import React, { useEffect, useState,useContext } from 'react';
-import { View, Text, EventEmitter, Image, StyleSheet, Pressable, ScrollView, ImageBackground } from 'react-native';
+import React, {useEffect, useState, useContext} from 'react';
+import {View, Text, Image, StyleSheet, Pressable, ScrollView} from 'react-native';
 import MyMenuButton from '../components/menu_button';
 import SignInScreen from '../views/SignInScreen';
 import LogInScreen from '../views/LogInScreen';
@@ -8,25 +8,11 @@ import MyBrewery from '../views/Brewery'
 import MyAdmin from './AdminPage';
 import LogOutScreen from './LogOutScreen';
 import {AuthContext} from "../context/AuthContext";
-import jwtDecode from "jwt-decode";
-
 
 
 function Menu({navigation}) {
-
-    const [adminLogIn, setAdminLogIn] = useState(false);
-    const [connect, setConnect] = useState(false);
     const {
-        authState,
-        getUserToken,
-        setAuthState,
-        logout,
         isAuthenticated,
-        onSignInPressed,
-        username,
-        password,
-        setUsername,
-        setPassword,
         isLoggedIn,
         isRoles
     } = useContext(AuthContext)
@@ -35,7 +21,7 @@ function Menu({navigation}) {
     const AdminMenu = () => {
         if (isRoles() === 'admin')
             return (
-                <MyMenuButton style={style.pressable_menu} where={'Admin'} onClickMyButton={goNavigate}></MyMenuButton>
+                <MyMenuButton style={style.pressable_menu} where={'Admin'} onClickMyButton={goNavigate}/>
             )
         else return null;
     }
@@ -49,19 +35,18 @@ function Menu({navigation}) {
         [])
     const LogScreenMenu = () => {
 
-        if (isAuthenticated () === 'true') {
-            console.log(jwtDecode(getUserToken()))
+        if (isAuthenticated() === 'true') {
             return (
                 <MyMenuButton style={style.pressable_menu} where={'Deconnexion'}
-                              onClickMyButton={goNavigate}></MyMenuButton>
+                              onClickMyButton={goNavigate}/>
             )
         } else
             return (
                 <View>
                     <MyMenuButton style={style.pressable_menu} where={'Connexion'}
-                                  onClickMyButton={goNavigate}></MyMenuButton>
+                                  onClickMyButton={goNavigate}/>
                     <MyMenuButton style={style.pressable_menu} where={'Inscription'}
-                                  onClickMyButton={goNavigate}></MyMenuButton>
+                                  onClickMyButton={goNavigate}/>
                 </View>
             )
     }
@@ -88,12 +73,12 @@ function Menu({navigation}) {
                         <Text style={style.pressable_menu}>Les Cartes</Text>
                     </Pressable>
                     <View style={{flexDirection: 'row'}}>
-                        <Image style={{flex: 1, height: 160}} source={require('../data/images/font.png')}></Image>
+                        <Image style={{flex: 1, height: 160}} source={require('../data/images/font.png')}/>
                         <View style={{flexDirection: 'column', flex: 8}}>
                             <MyMenuButton style={style.pressable_sub_menu} where={props.where}
-                                          onClickMyButton={goNavigate}></MyMenuButton>
+                                          onClickMyButton={goNavigate}/>
                             <MyMenuButton style={style.pressable_sub_menu} where={props.where2}
-                                          onClickMyButton={goNavigate}></MyMenuButton>
+                                          onClickMyButton={goNavigate}/>
                         </View>
                     </View>
                 </View>
@@ -104,11 +89,11 @@ function Menu({navigation}) {
     return (
         <View style={{alignItems: 'center'}}>
             <ScrollView style={style.scroll_view}>
-                <BuildMySubMenu where={'Carte des Bières'} where2={'Carte des Brasseries'}></BuildMySubMenu>
+                <BuildMySubMenu where={'Carte des Bières'} where2={'Carte des Brasseries'}/>
                 {/*<MyMenuButton style={style.pressable_menu} where={'Evenement'} onClickMyButton={goNavigate}></MyMenuButton>
                 <MyMenuButton style={style.pressable_menu} where={'Parametres'} onClickMyButton={goNavigate}></MyMenuButton>*/}
-                <LogScreenMenu></LogScreenMenu>
-                <AdminMenu></AdminMenu>
+                <LogScreenMenu/>
+                <AdminMenu/>
 
             </ScrollView>
         </View>
@@ -118,13 +103,13 @@ function Menu({navigation}) {
 
 const Admin = (props) => {
     const goNavigate = (where, id, fun) => {
-        props.navigation.navigate(where, { paramKey: id });
+        props.navigation.navigate(where, {paramKey: id},fun);
     }
 
     // goNav va stocké la fonction pour pouvoir être réutilisée
     return (
         <View style={style.menu_view}>
-            <MyAdmin goNav={goNavigate} go={props}></MyAdmin>
+            <MyAdmin goNav={goNavigate} go={props}/>
 
         </View>
 
@@ -137,7 +122,7 @@ const Beers = (props) => {
     // where = l'endroit de navigation
     // id = info de l'id transmise à la page
     const goNavigate = (where, id, fun) => {
-        props.navigation.navigate(where, { paramKey: id, paramFun: fun });
+        props.navigation.navigate(where, {paramKey: id, paramFun: fun});
     }
 
     // goNav va stocké la fonction pour pouvoir être réutilisée
@@ -157,7 +142,7 @@ const Brewery = (props) => {
     // where = l'endroit de navigation
     // id = info de l'id transmise à la page
     const goNavigate = (where, id) => {
-        props.navigation.navigate(where, { paramKey: id });
+        props.navigation.navigate(where, {paramKey: id});
     }
 
     // goNav va stocké la fonction pour pouvoir être réutilisée
@@ -169,7 +154,7 @@ const Brewery = (props) => {
     );
 }
 
-function Evenement({ navigation }) {
+function Evenement({navigation}) {
     const goNavigate = (where) => {
         navigation.navigate(where);
     }
@@ -181,7 +166,8 @@ function Evenement({ navigation }) {
 
     );
 }
-function Parametres({ navigation }) {
+
+function Parametres({navigation}) {
     return (
         <View style={style.menu_view}>
             <Text style={style.menu_text}>Parametres Screen</Text>
@@ -194,7 +180,8 @@ function Parametres({ navigation }) {
         </View>
     );
 }
-function Connexion({ navigation }) {
+
+function Connexion({navigation}) {
     return (
         <View style={style.menu_view}>
             <LogInScreen/>
@@ -207,7 +194,8 @@ function Connexion({ navigation }) {
         </View>
     );
 }
-function Deconnexion({ navigation }) {
+
+function Deconnexion({navigation}) {
     return (
         <View style={style.menu_view}>
             <LogOutScreen/>
@@ -220,7 +208,8 @@ function Deconnexion({ navigation }) {
         </View>
     );
 }
-function Inscription({ navigation }) {
+
+function Inscription({navigation}) {
     return (
         <View style={style.menu_view}>
             <SignInScreen/>
@@ -235,13 +224,8 @@ function Inscription({ navigation }) {
 }
 
 
-
-
-
 const style = StyleSheet.create({
-    scroll_view: {
-
-    },
+    scroll_view: {},
     pressable_menu: {
         backgroundColor: '#522B20',
         fontSize: 38,
@@ -276,4 +260,4 @@ const style = StyleSheet.create({
     }
 })
 export default Menu;
-export { Beers, Evenement, Parametres, Connexion, Inscription, Brewery, Admin, Deconnexion };
+export {Beers, Evenement, Parametres, Connexion, Inscription, Brewery, Admin, Deconnexion};

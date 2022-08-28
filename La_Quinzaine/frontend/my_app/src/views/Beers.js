@@ -7,6 +7,7 @@ const MyBeers = (props) => {
     const [lookBeer, setLookBeer] = useState('');
     const [beerList, setBeerList] = useState()  // ICI METTRE FETCH DE TOUTES LES BIERES PAR ORDRE ALPHABETIQUE MAJEUR ET QUANTITE MINEUR DANS LE USESTATE()
 
+
     useEffect(() => {
         getData('http://localhost:3000/api/beers/' + lookBeer).then(data => setBeerList(data.data))// add conditional check
     }, [lookBeer])
@@ -20,7 +21,7 @@ const MyBeers = (props) => {
                 <FlatList
 
                     data={beerList}
-                    keyExtractor={(item) => item.idBeer.toString()}
+                    keyExtractor={(item) => item.idBeer}
                     renderItem={({item}) =>
                         <BeerInfo beerId={item.idBeer} beerName={item.beerName} degree={item.degree}
                                   price={item.price} quantite={item.quantite} source={item.imageUrl}/>
