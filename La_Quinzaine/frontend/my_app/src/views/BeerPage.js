@@ -3,7 +3,6 @@ import {
     Image, Button, View, Text, EventEmitter, StyleSheet, Pressable, ScrollView, ImageBackground, TouchableOpacity
 } from 'react-native';
 import {getData} from "../context/fetchContext";
-
 const BeerPage = ({route}) => {
     const [breweryInfo, setBreweryInfo] = useState(null);
     const [beerInfo, setBeerInfo] = useState({
@@ -14,20 +13,19 @@ const BeerPage = ({route}) => {
         degree: 8,
         isNew: 0,
         price: 6,
-        quantite: 1,
+        quantite: 25,
         imageUrl:'../data/images/TK-33cl.webp'
 
     });
    // let beerInfo = []
     const id = route.params.paramKey;
     useEffect(() => {
-        const result = getData('http://localhost:3000/api/beers/id/' + id)// add conditional check
+        getData('http://localhost:3000/api/beers/id/' + id)// add conditional check
             .then(data =>setBeerInfo(data.data))
     }, [setBeerInfo])
 
     // require(urlImage) de la biere stockée
     let goNav = route.params.paramFun;
-
     //fonction qui renvoie l'id de la brasserie correspondante à la bière
 
 
@@ -48,7 +46,7 @@ const BeerPage = ({route}) => {
 
 
     const LayoutBeer = () => {
-
+    const image = beerInfo.imageUrl
         const Stars = () => {
             const [number, setNumber] = useState(3); //get fetch vote //probablement supprimable et rajouter une constante
             //dans useState d'en dessous qui appel pour set le nbr d'étoiles au début un fetch
@@ -90,14 +88,13 @@ const BeerPage = ({route}) => {
             </View>)
 
         }
-        console.log(beerInfo);
         return (<View style={{backgroundColor: 'gray', height: 1000}}>
             <Text style={{
                 fontSize: 30, fontStyle: 'bold', textAlign: 'center', marginTop: 15, textDecorationLine: 'underline'
             }}>{beerInfo.beerName}</Text>
             <View style={{flexDirection: 'row', marginTop: 30}}>
                 <View style={{flex: 2, marginLeft: 20}}>
-                    <Image style={{height: 235, width: 80}} source={beerInfo.imageUrl}/>
+                    <Image style={{height: 235, width: 80}} source={require(`${ props.imageUrl }`)}/>
                 </View>
                 <View style={{flex: 3, flexDirection: 'column', marginTop: 10}}>
                     <Text style={style.text_information}>Type de bière : {beerInfo.idType}</Text>
@@ -116,7 +113,7 @@ const BeerPage = ({route}) => {
                     <Text style={{fontSize: 20}}>Votre Note :</Text>
                 </View>
                 <View style={{flex: 2}}>
-                    <Stars></Stars>
+                    <Stars/>
                 </View>
             </View>
         </View>)

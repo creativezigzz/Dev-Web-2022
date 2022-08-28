@@ -83,7 +83,7 @@ module.exports = {
     ,
     getBeerByBeerId: (id, callBack) => {
         pool.query(
-            `select idBrewery, idType, beerName, degree, isNew, price,imageUrl
+            `select idBrewery, idType, beerName, degree, isNew, price,imageUrl,quantite
              from beer
              where idBeer = ?`,
             [id],
