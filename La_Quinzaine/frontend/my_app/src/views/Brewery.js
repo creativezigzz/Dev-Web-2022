@@ -8,7 +8,7 @@ import {getData} from "../context/fetchContext";
 
 const MyBrewery = (props) => {
     const [lookBrewery, setLookBrewery] = useState('');
-    const [breweryList, setBreweryList] = useState(''); //meme delire que beerpage mais cette fois-ci
+    const [breweryList, setBreweryList] = useState(); //meme delire que beerpage mais cette fois-ci
 
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const MyBrewery = (props) => {
 
         return (
             <View>
-                <AfficherInfoBrewery></AfficherInfoBrewery>
+                <AfficherInfoBrewery/>
                 <FlatList
                     data={breweryList}//mettre ici breweryList
                     keyExtractor={(item) => item.idBrewery}
@@ -59,7 +59,7 @@ const MyBrewery = (props) => {
             <View>
                 <TouchableOpacity style={{flexDirection: 'row'}} onPress={onClick}>
                     <Text style={style.nameBreweryList}>{props.breweryName}</Text>
-                    <Image style={style.imageBrewery} source={require('../data/images/TK-1L.webp')}></Image>
+                    <Image style={style.imageBrewery} source={require('../data/images/TK-1L.webp')}/>
                 </TouchableOpacity>
             </View>
         )

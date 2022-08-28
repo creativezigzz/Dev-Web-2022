@@ -15,7 +15,7 @@ const BreweryPage = ({ route, props }) => {
                 <Text style={{ fontSize: 30, fontStyle: 'bold', textAlign: 'center', marginTop: 15, textDecorationLine: 'underline' }}>{dataBrewery.breweryName}</Text>
                 <View style={{ marginTop: 30 }}>
                     <View style={{ alignItems: 'center' }}>
-                        <Image style={{ height: 250, width: 250 }} source={url}></Image>
+                        <Image style={{height: 250, width: 250}} source={url}/>
                     </View>
                     <View style={{ marginTop: 40, marginHorizontal: 20 }}>
                         <Text style={{ fontFamily: 'bold', fontSize: 24 }}> Description :</Text>

@@ -20,7 +20,6 @@ const MyBeers = (props) => {
                 <FlatList
 
                     data={beerList}
-                    //UTILISE beerList DU USESTATE POUR AVOIR UN TRUC REACTIF
                     keyExtractor={(item) => item.idBeer}
                     renderItem={({item}) =>
                         <BeerInfo beerId={item.idBeer} beerName={item.beerName} degree={item.degree}
@@ -53,7 +52,6 @@ const MyBeers = (props) => {
 
         //const url=require(props.source.toString())
         const onClick = () => {
-            console.log(props.beerId);
             goNav("Information de la bière", props.beerId, goNav); //ICI Y A UN SOUCI A REGLER
         }
 
