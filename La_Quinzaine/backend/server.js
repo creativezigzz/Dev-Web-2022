@@ -22,6 +22,7 @@ app.use(cors(corsOptions));
 app.use("/api/beers", require("./routes/beerRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/brewery", require("./routes/breweryRoutes"))
+app.use("/api/type", require("./routes/typeRoutes"))
 app.get("/api/", (req, res) => {
     res.send("Hello World");
 })
