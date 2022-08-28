@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Pressable, TextInput, View, Text, FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {listBrewery} from "../data/breweryList";
 import BarreDeRecherche from "../components/BarreDeRecherche";
-import MyMenuButton from "../components/menu_button"
 import {getData} from "../context/fetchContext";
 
 

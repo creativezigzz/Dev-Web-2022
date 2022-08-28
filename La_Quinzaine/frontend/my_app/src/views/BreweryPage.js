@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Image, Button, View, Text, EventEmitter, StyleSheet, Pressable, ScrollView, ImageBackground } from 'react-native';
 import { listBrewery } from '../data/breweryList';
 
-const BreweryPage = ({ route, props }) => {
+const BreweryPage = ({ route}) => {
 
     let dataBrewery = listBrewery[route.params.paramKey - 1]; // ATTENTION ICI JE PRENDS  L'INDEX DU TABLEAU mais je dois prendre l'id de la biere
     let url = dataBrewery.urlImage // require(urlImage) de la biere stockée  
@@ -32,7 +32,7 @@ const BreweryPage = ({ route, props }) => {
 
     return (
         <View>
-            <LayoutBrewery></LayoutBrewery>
+            <LayoutBrewery/>
         </View>
     )
 }

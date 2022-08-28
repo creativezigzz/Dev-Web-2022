@@ -20,7 +20,7 @@ const MyBeers = (props) => {
                 <FlatList
 
                     data={beerList}
-                    keyExtractor={(item) => item.idBeer}
+                    keyExtractor={(item) => item.idBeer.toString()}
                     renderItem={({item}) =>
                         <BeerInfo beerId={item.idBeer} beerName={item.beerName} degree={item.degree}
                                   price={item.price} quantite={item.quantite} source={item.imageUrl}/>

@@ -143,7 +143,7 @@ const Beers = (props) => {
     // goNav va stocké la fonction pour pouvoir être réutilisée
     return (
         <View style={style.menu_view}>
-            <MyBeers goNav={goNavigate} go={props}></MyBeers>
+            <MyBeers goNav={goNavigate} go={props}/>
 
         </View>
 
@@ -163,7 +163,7 @@ const Brewery = (props) => {
     // goNav va stocké la fonction pour pouvoir être réutilisée
     return (
         <View style={style.menu_view}>
-            <MyBrewery goNav={goNavigate} go={props}></MyBrewery>
+            <MyBrewery goNav={goNavigate} go={props}/>
         </View>
 
     );
@@ -176,7 +176,7 @@ function Evenement({ navigation }) {
     return (
         <View style={style.menu_view}>
             <Text style={style.menu_text}>Beers Evenement</Text>
-            <MyMenuButton style={style.pressable_retour} where={'Menu'} onClickMyButton={goNavigate}></MyMenuButton>
+            <MyMenuButton style={style.pressable_retour} where={'Menu'} onClickMyButton={goNavigate}/>
         </View>
 
     );
@@ -197,7 +197,7 @@ function Parametres({ navigation }) {
 function Connexion({ navigation }) {
     return (
         <View style={style.menu_view}>
-            <LogInScreen></LogInScreen>
+            <LogInScreen/>
             <Pressable
                 onPress={() =>
                     navigation.navigate('Menu')
@@ -210,7 +210,7 @@ function Connexion({ navigation }) {
 function Deconnexion({ navigation }) {
     return (
         <View style={style.menu_view}>
-            <LogOutScreen></LogOutScreen>
+            <LogOutScreen/>
             <Pressable
                 onPress={() =>
                     navigation.navigate('Menu')
@@ -223,7 +223,7 @@ function Deconnexion({ navigation }) {
 function Inscription({ navigation }) {
     return (
         <View style={style.menu_view}>
-            <SignInScreen></SignInScreen>
+            <SignInScreen/>
             <Pressable
                 onPress={() =>
                     navigation.navigate('Menu')
