@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from "react";
-import {View, Text, FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, FlatList, Image, StyleSheet, TouchableOpacity,ScrollView} from 'react-native';
 import BarreDeRecherche from "../components/BarreDeRecherche";
 import {getData} from "../context/fetchContext"
 
 const MyBeers = (props) => {
     const [lookBeer, setLookBeer] = useState('');
     const [beerList, setBeerList] = useState()  // ICI METTRE FETCH DE TOUTES LES BIERES PAR ORDRE ALPHABETIQUE MAJEUR ET QUANTITE MINEUR DANS LE USESTATE()
-
 
     useEffect(() => {
         getData('http://localhost:3000/api/beers/' + lookBeer).then(data => setBeerList(data.data))// add conditional check
@@ -16,7 +15,7 @@ const MyBeers = (props) => {
 
     const AfficherBeer = () => {
         return (
-            <View>
+            <ScrollView>
                 <AfficherInfoBeer/>
                 <FlatList
 
@@ -28,7 +27,7 @@ const MyBeers = (props) => {
                     }
 
                 />
-            </View>
+            </ScrollView>
         )
     }
 

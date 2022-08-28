@@ -19,6 +19,7 @@ app.use(cors(corsOptions));
 // Redirect requests to endpoint starting with /posts to postRoutes.js
 
 // ======================== ROUTES =======================
+app.use("/api/mdsEvent", require("./routes/eventsRoutes"));
 app.use("/api/beers", require("./routes/beerRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/brewery", require("./routes/breweryRoutes"))

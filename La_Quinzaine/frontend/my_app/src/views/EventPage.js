@@ -12,24 +12,38 @@ const MyEvents = () => {
 
     // composant qui crée l'architecture d'un objet event
     const EventInfo = (props) => {
-        console.log()
+        const [brewery, setBrewery] = useState({
+            idBrewery : 1,
+            breweryDescript: 'Loading',
+            breweryName: 'Loading',
+            urlImage:'null'
+        });
+
+          useEffect(() => {
+        getData('http://localhost:3000/api/brewery/id/' + props.breweryId ).then(d => setBrewery(d.data))// add conditional check
+        }, [props.breweryId])
+
+        console.log(brewery)
+
+        //VIEW d'une brasserie
         return (
             <View>
                 <Text>{props.dateString}</Text>
                 <View
                     style={{
                         borderBottomColor: 'black',
-                        borderBottomWidth: StyleSheet.hairlineWidth,
+                        borderBottomWidth: 3,
                         marginHorizontal:5,
-                        marginRight:75,
+                        marginRight:85,
                     }}
                 />
                 <Text >{props.descriptionEvent}</Text>
-                <Text> Brasserie mise à l'honneur : </Text>
+                <Text> Brasserie mise à l'honneur : {brewery.breweryName}</Text>
 
             </View>
         )
     }
+    //VIEW de toutes les brasseries
     return (
         <ScrollView>
             <FlatList
@@ -37,10 +51,38 @@ const MyEvents = () => {
                 data={listEvent}
                 keyExtractor={(item) => item.idEvent}
                 renderItem={({ item }) =>
-                    <EventInfo descriptionEvent={item.eventDescript} dateString={item.eventDate} />
+                    <EventInfo descriptionEvent={item.eventDescript} dateString={item.eventDate} breweryId={item.idBrewery}/>
                 }
 
             />
+             <FlatList
+
+data={listEvent}
+keyExtractor={(item) => item.idEvent}
+renderItem={({ item }) =>
+    <EventInfo descriptionEvent={item.eventDescript} dateString={item.eventDate} breweryId={item.idBrewery}/>
+}
+
+/>
+<FlatList
+
+data={listEvent}
+keyExtractor={(item) => item.idEvent}
+renderItem={({ item }) =>
+    <EventInfo descriptionEvent={item.eventDescript} dateString={item.eventDate} breweryId={item.idBrewery}/>
+}
+
+/>
+<FlatList
+
+data={listEvent}
+keyExtractor={(item) => item.idEvent}
+renderItem={({ item }) =>
+    <EventInfo descriptionEvent={item.eventDescript} dateString={item.eventDate} breweryId={item.idBrewery}/>
+}
+
+/>
+
         </ScrollView>
     )
 }

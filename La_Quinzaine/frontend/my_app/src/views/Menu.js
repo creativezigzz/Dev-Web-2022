@@ -8,6 +8,7 @@ import MyBrewery from '../views/Brewery'
 import MyAdmin from './AdminPage';
 import LogOutScreen from './LogOutScreen';
 import {AuthContext} from "../context/AuthContext";
+import MyEvents from './EventPage';
 
 
 function Menu({navigation}) {
@@ -29,6 +30,15 @@ function Menu({navigation}) {
     const goNavigate = (where) => {
         navigation.navigate(where);
     }
+
+    const EventPageMenu = () =>{
+        return(
+                <MyMenuButton style={style.pressable_menu} where={'Evenements'}
+                   onClickMyButton={goNavigate}></MyMenuButton>
+
+        )
+    }
+
     useEffect(() => {
             isLoggedIn();
         },
@@ -92,6 +102,7 @@ function Menu({navigation}) {
                 <BuildMySubMenu where={'Carte des Bières'} where2={'Carte des Brasseries'}/>
                 {/*<MyMenuButton style={style.pressable_menu} where={'Evenement'} onClickMyButton={goNavigate}></MyMenuButton>
                 <MyMenuButton style={style.pressable_menu} where={'Parametres'} onClickMyButton={goNavigate}></MyMenuButton>*/}
+                <EventPageMenu></EventPageMenu>
                 <LogScreenMenu/>
                 <AdminMenu/>
 
@@ -154,14 +165,14 @@ const Brewery = (props) => {
     );
 }
 
-function Evenement({navigation}) {
+//page des evenements
+function EventPage({ navigation }) {
     const goNavigate = (where) => {
         navigation.navigate(where);
     }
     return (
         <View style={style.menu_view}>
-            <Text style={style.menu_text}>Beers Evenement</Text>
-            <MyMenuButton style={style.pressable_retour} where={'Menu'} onClickMyButton={goNavigate}/>
+            <MyEvents></MyEvents>
         </View>
 
     );
@@ -260,4 +271,4 @@ const style = StyleSheet.create({
     }
 })
 export default Menu;
-export {Beers, Evenement, Parametres, Connexion, Inscription, Brewery, Admin, Deconnexion};
+export { Beers, Parametres, Connexion, Inscription, Brewery, Admin, Deconnexion, EventPage };

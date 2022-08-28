@@ -3,7 +3,7 @@ import { Button, View, Text, EventEmitter, StyleSheet, Pressable, ScrollView, Im
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Menu from './src/views/Menu';
-import { Beers, Evenement, Parametres, Connexion, Inscription, Brewery,Admin ,Deconnexion } from './src/views/Menu';
+import { Beers, Parametres, Connexion, Inscription, Brewery,Admin ,Deconnexion,EventPage } from './src/views/Menu';
 import BeerPage from './src/views/BeerPage';
 import BreweryPage from './src/views/BreweryPage';
 import AdminBeerPage from './src/views/AdminBeerPage';
@@ -20,7 +20,6 @@ function App() {
           <Stack.Navigator initialRouteName="Menu">
             <Stack.Screen name="Menu" component={Menu} />
             <Stack.Screen name="Carte des Bières" component={Beers} />
-            <Stack.Screen name="Evenement" component={Evenement} />
             <Stack.Screen name="Parametres" component={Parametres} />
             <Stack.Screen name="Connexion" component={Connexion} />
             <Stack.Screen name="Inscription" component={Inscription} />
@@ -30,6 +29,7 @@ function App() {
             <Stack.Screen name="Admin" component={Admin} />
             <Stack.Screen name="Deconnexion" component={Deconnexion} />
             <Stack.Screen name="AdminBeerPage" component={AdminBeerPage} />
+            <Stack.Screen name="Evenements" component={EventPage} />
           </Stack.Navigator>
         </NavigationContainer>
       </AuthProvider>
