@@ -50,7 +50,7 @@ const MyBeers = (props) => {
 
     const BeerInfo = (props) => {
 
-        //const url=require(props.source.toString())
+        //const url=`${require(props.source.toString())}`
         const onClick = () => {
             goNav("Information de la bière", props.beerId, goNav); //ICI Y A UN SOUCI A REGLER
         }
@@ -68,7 +68,7 @@ const MyBeers = (props) => {
                     <Text style={style.textBiereList}>{props.degree}</Text>
                     <Text style={style.textBiereList}>{props.price} €</Text>
                     <Text style={style.textBiereList}>{changeQuantity(props.quantite)}</Text>
-                    <Image style={style.imageBiere} source={require('../data/images/Bush-Blonde-33cl.webp')}/>
+                    <Image style={style.imageBiere} source={require("../data/images/Bush-Blonde-33cl.webp")}/>
 
                 </TouchableOpacity>
             </View>

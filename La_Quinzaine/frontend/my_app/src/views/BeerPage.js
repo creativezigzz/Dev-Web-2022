@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {
-    Image, Button, View, Text, EventEmitter, StyleSheet, Pressable, ScrollView, ImageBackground, TouchableOpacity
+    Image, View, Text, StyleSheet, Pressable, TouchableOpacity
 } from 'react-native';
 import {getData} from "../context/fetchContext";
 const BeerPage = ({route}) => {
-    const [breweryInfo, setBreweryInfo] = useState(null);
     const [beerInfo, setBeerInfo] = useState({
         idBeer : 1,
         idBrewery: 1,
@@ -17,13 +16,19 @@ const BeerPage = ({route}) => {
         imageUrl:'../data/images/TK-33cl.webp'
 
     });
+    const [breweryName,setBreweryName] = useState("")
    // let beerInfo = []
     const id = route.params.paramKey;
     useEffect(() => {
+        //Fetch des infos de la biere avec l'id en question
         getData('http://localhost:3000/api/beers/id/' + id)// add conditional check
             .then(data =>setBeerInfo(data.data))
-    }, [setBeerInfo])
+    }, [setBeerInfo,setBreweryName])
+    useEffect(() => {
 
+        getData('http://localhost:3000/api/brewery/id/' + beerInfo.idBrewery)
+            .then(data => setBreweryName(data.data.breweryName))
+    },[beerInfo])
     // require(urlImage) de la biere stockée
     let goNav = route.params.paramFun;
     //fonction qui renvoie l'id de la brasserie correspondante à la bière
@@ -46,7 +51,6 @@ const BeerPage = ({route}) => {
 
 
     const LayoutBeer = () => {
-    const image = beerInfo.imageUrl
         const Stars = () => {
             const [number, setNumber] = useState(3); //get fetch vote //probablement supprimable et rajouter une constante
             //dans useState d'en dessous qui appel pour set le nbr d'étoiles au début un fetch
@@ -94,15 +98,15 @@ const BeerPage = ({route}) => {
             }}>{beerInfo.beerName}</Text>
             <View style={{flexDirection: 'row', marginTop: 30}}>
                 <View style={{flex: 2, marginLeft: 20}}>
-                    <Image style={{height: 235, width: 80}} source={require(`${ props.imageUrl }`)}/>
+                    <Image style={{height: 235, width: 80}} source={require('../data/images/Bush-Blonde-33cl.webp')}/>
                 </View>
                 <View style={{flex: 3, flexDirection: 'column', marginTop: 10}}>
                     <Text style={style.text_information}>Type de bière : {beerInfo.idType}</Text>
                     <Text style={style.text_information}>Prix : {beerInfo.price}€</Text>
                     <Text style={style.text_information}>Degrée : {beerInfo.degree}%</Text>
-                    <Text style={style.text_information}>Quantité : {beerInfo.quantite}%</Text>
+                    <Text style={style.text_information}>Quantité : {beerInfo.quantite}cl</Text>
                     <View style={{flex: 1}}>
-                        <PressableBrewery breweryName={beerInfo.idBrewery}/>
+                        <PressableBrewery breweryName={breweryName}/>
                     </View>
                 </View>
             </View>
