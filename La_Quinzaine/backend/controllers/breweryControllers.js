@@ -28,7 +28,7 @@ module.exports = {
         });
     },
     getAllBreweries: (req, res) => {
-        getbrewerys((err, results) => {
+        getAllBrewery((err, results) => {
             if (err) {
                 console.log(err);
                 return;
@@ -41,7 +41,7 @@ module.exports = {
     },
     getBreweryByBreweryId: (req, res) => {
         const id = req.params.id;
-        getBreweryBybreweryId(id,(err, results) => {
+        getBreweryByBreweryId(id,(err, results) => {
                 if (err) {
                     console.log(err);
                     return res.status(405);

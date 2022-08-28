@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import BarreDeRecherche from "../components/BarreDeRecherche";
 import {getData} from "../context/fetchContext"
 
@@ -16,7 +16,7 @@ const MyBeers = (props) => {
     const AfficherBeer = () => {
         return (
             <View>
-                <AfficherInfoBeer></AfficherInfoBeer>
+                <AfficherInfoBeer/>
                 <FlatList
 
                     data={beerList}
@@ -24,7 +24,7 @@ const MyBeers = (props) => {
                     keyExtractor={(item) => item.idBeer}
                     renderItem={({item}) =>
                         <BeerInfo beerId={item.idBeer} beerName={item.beerName} degree={item.degree}
-                                  price={item.price} quantite={item.quantite} source={item.imageUrl}></BeerInfo>
+                                  price={item.price} quantite={item.quantite} source={item.imageUrl}/>
                     }
 
                 />
@@ -70,7 +70,7 @@ const MyBeers = (props) => {
                     <Text style={style.textBiereList}>{props.degree}</Text>
                     <Text style={style.textBiereList}>{props.price} €</Text>
                     <Text style={style.textBiereList}>{changeQuantity(props.quantite)}</Text>
-                    <Image style={style.imageBiere} source={require('../data/images/Bush-Blonde-33cl.webp')}></Image>
+                    <Image style={style.imageBiere} source={require('../data/images/Bush-Blonde-33cl.webp')}/>
 
                 </TouchableOpacity>
             </View>
@@ -81,10 +81,10 @@ const MyBeers = (props) => {
         <View style={{flex: 1}}>
             <View style={{height: 25, flexDirection: 'row', marginTop: 25}}>
                 <BarreDeRecherche style={{flex: 3}} value={lookBeer} setValue={setLookBeer}
-                                  placeholder={'Recherche de Biere'}></BarreDeRecherche>
+                                  placeholder={'Recherche de Biere'}/>
             </View>
             <View style={{padding: 10, flex: 1}}>
-                <AfficherBeer goNav={props.goNav}></AfficherBeer>
+                <AfficherBeer goNav={props.goNav}/>
             </View>
             <View>
             </View>

@@ -53,10 +53,9 @@ module.exports = {
     getAllBrewery: callBack => {
         pool.query(
             `select idBrewery, breweryDescript, breweryName, urlImage
-             from brewery
-             order by breweryName`,
+             from brewery`,
             [],
-            (error, results, fields) => {
+            (error, results) => {
                 if (error) {
                     callBack(error);
                 }

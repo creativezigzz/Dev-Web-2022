@@ -8,15 +8,15 @@ import {getData} from "../context/fetchContext";
 
 const MyBrewery = (props) => {
     const [lookBrewery, setLookBrewery] = useState('');
-    const [breweryList, setBreweryList] = useState('rien'); //meme delire que beerpage mais cette fois-ci
+    const [breweryList, setBreweryList] = useState(''); //meme delire que beerpage mais cette fois-ci
 
 
     useEffect(() => {
-        getData('http://localhost:3000/api/brewery/' + lookBrewery).then(data => setBreweryList(data.data))
-        console.log(lookBrewery)   // add conditional check
+        getData('http://localhost:3000/api/brewery/' + lookBrewery).then(data => setBreweryList(data.data))// add conditional check
     }, [lookBrewery])
 
-    const AfficherBrewery = (props) => {
+    const goNav = props.goNav
+    const AfficherBrewery = () => {
 
         return (
             <View>
@@ -25,8 +25,8 @@ const MyBrewery = (props) => {
                     data={breweryList}//mettre ici breweryList
                     keyExtractor={(item) => item.idBrewery}
                     renderItem={({item}) =>
-                        <BreweryInfo breweryId={item.idBrewery} goNav={props.goNav} breweryName={item.breweryName}
-                                     source={item.urlImage}></BreweryInfo>
+                        <BreweryInfo breweryId={item.idBrewery} goNav={goNav} breweryName={item.breweryName}
+                                     source={item.urlImage}/>
                     }
 
                 />
@@ -69,10 +69,10 @@ const MyBrewery = (props) => {
         <View style={{flex: 1}}>
             <View style={{height: 25, flexDirection: 'row', marginTop: 25}}>
                 <BarreDeRecherche value={lookBrewery} setValue={setLookBrewery}
-                                  placeholder={'Recherche de Brasseries'}></BarreDeRecherche>
+                                  placeholder={'Recherche de Brasseries'}/>
             </View>
             <View style={{padding: 10, flex: 1}}>
-                <AfficherBrewery goNav={props.goNav}></AfficherBrewery>
+                <AfficherBrewery goNav={goNav}/>
             </View>
             <View>
             </View>
