@@ -16,7 +16,8 @@ const BeerPage = ({route}) => {
         imageUrl:'../data/images/TK-33cl.webp'
 
     });
-    const [breweryName,setBreweryName] = useState("")
+    const [breweryName,setBreweryName] = useState("");
+    const [typeName,setTypeName] = useState("");
    // let beerInfo = []
     const id = route.params.paramKey;
     useEffect(() => {
@@ -25,19 +26,23 @@ const BeerPage = ({route}) => {
             .then(data =>setBeerInfo(data.data))
     }, [setBeerInfo,setBreweryName])
     useEffect(() => {
-
+        //Fetch du nom de la brasserie en fonction de l'id qui est renvoyer de beerInfo
         getData('http://localhost:3000/api/brewery/id/' + beerInfo.idBrewery)
             .then(data => setBreweryName(data.data.breweryName))
+        //Fetch du nom du type en fonction de l'id qui est remis dans beerInfo
+        getData('http://localhost:3000/api/type/id/' + beerInfo.idType)
+            .then(data => setTypeName(data.data.name))
+
     },[beerInfo])
-    // require(urlImage) de la biere stockée
+
+
     let goNav = route.params.paramFun;
-    //fonction qui renvoie l'id de la brasserie correspondante à la bière
+
 
 
     const PressableBrewery = (props) => {
         const idBrewery = beerInfo.idBrewery
         const onClick = () => {
-            console.log("ceci est la brasserie : " + props.breweryName)
             goNav("Information de la brasserie", idBrewery, goNav);
 
         }
@@ -101,7 +106,7 @@ const BeerPage = ({route}) => {
                     <Image style={{height: 235, width: 80}} source={require('../data/images/Bush-Blonde-33cl.webp')}/>
                 </View>
                 <View style={{flex: 3, flexDirection: 'column', marginTop: 10}}>
-                    <Text style={style.text_information}>Type de bière : {beerInfo.idType}</Text>
+                    <Text style={style.text_information}>Type de bière : {typeName}</Text>
                     <Text style={style.text_information}>Prix : {beerInfo.price}€</Text>
                     <Text style={style.text_information}>Degrée : {beerInfo.degree}%</Text>
                     <Text style={style.text_information}>Quantité : {beerInfo.quantite}cl</Text>
