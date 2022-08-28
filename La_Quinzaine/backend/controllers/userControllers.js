@@ -97,7 +97,7 @@ module.exports = {
     },
     getUserByUserId: (req, res) => {
         const id = req.params.id;
-        console.log(id);
+
         getUserByUserId(id, (err, results) => {
             if (err) {
                 console.log(err);
@@ -149,17 +149,12 @@ module.exports = {
         });
     },
     deleteUser: (req, res) => {
-        const data = req.body;
-        deleteUser(data, (err, results) => {
+        const id = req.params.id;
+        console.log(id);
+        deleteUser(id, (err) => {
             if (err) {
                 console.log(err);
                 return;
-            }
-            if (!results) {
-                return res.json({
-                    success: 0,
-                    message: "Record Not Found"
-                });
             }
             return res.json({
                 success: 1,

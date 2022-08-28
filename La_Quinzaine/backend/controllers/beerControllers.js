@@ -4,7 +4,7 @@ const {
     getBeerIfContains,
     getBeers,
     create,
-    update,
+    updateBeer,
     deleteBeer
 } = require("../models/beer")
 
@@ -20,7 +20,7 @@ module.exports = {
                 });
 
             }
-            return res.status(200).json({
+            return res.status(201).json({
                 success: 1,
                 data: results
             });
@@ -47,7 +47,7 @@ module.exports = {
                     return res.status(405);
                 }
                 if (!results) {
-                    return res.json({
+                    return res.status(404).json({
                         success: 0,
                         message: "Record not Found"
                     });
@@ -60,6 +60,39 @@ module.exports = {
 
             }
         )
+    },
+    updateBeer: (req, res) => {
+
+        const id = req.params.id
+        getBeerByBeerId(id, (err, results) => {
+            if (err) {
+                console.log(err);
+            }
+            if (!results) {
+                return res.status(404).json({
+                    success: 0,
+                    statusCode: 404,
+                    message: "Beer not in the database"
+                })
+            } else {
+                const infoBeer= results
+                updateBeer(id,req.body, (result,err) => {
+                    if (err) {
+                        console.log(err);
+                        return res.json({
+                            success: 0,
+                            status: 405,
+                            message: 'The Beer was  not updated'
+                        });
+                    }
+                    return res.json({
+                        success: 1,
+                        message: 'Beer successfully updated',
+                        data: infoBeer
+                    })
+                })
+            }
+        })
     },
     getBeerIfContains: (req, res) => {
         const contain = req.params.contain;
@@ -87,8 +120,7 @@ module.exports = {
                     statusCode: 404,
                     message: "Beer not in the database"
                 })
-            }
-            else {
+            } else {
                 const infoBeer = results
                 deleteBeer(id, (err) => {
                     if (err) {
