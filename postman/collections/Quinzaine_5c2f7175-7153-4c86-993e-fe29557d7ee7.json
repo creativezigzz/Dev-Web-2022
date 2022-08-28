@@ -1,0 +1,630 @@
+{
+	"info": {
+		"_postman_id": "6f79e04d-6246-4146-8df6-e7e94d5db8d4",
+		"name": "Quinzaine",
+		"description": "# Introduction\nRecupère toutes les données de la BDD pour l'utilisation de notre application principalement en CRUD d'utilisateur, de bières, brasseries, types et event.\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nUtilise l'utilisation de token pour certaine route\n\n# Error Codes\nErreur 405 quand la demande ne peut pas se faire, Erreur 404 lors d'une absence de donnée, et erreur 500 si un crash plus important se fait .\n\n# Rate limit\nAucune, mais en générale les requêtes se font 1 par 1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Beer",
+			"item": [
+				{
+					"name": "GET ALL BEER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a1abc6c0-8e9d-4a1f-ae9e-d0ef73da9aa8",
+								"exec": [
+									" pm.test(\"Success = 1 \", function () {\r",
+									"        var jsonData = pm.response.json();\r",
+									"        pm.expect(jsonData.success).to.eql(1);\r",
+									"    });\r",
+									" pm.test(\"Status code is 200\", function () {\r",
+									"        pm.response.to.have.status(200);\r",
+									"    });\r",
+									"\r",
+									"//On regarde si on reçoit bien toutes les données\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\" && \"Dark Sister\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "85b0deff-426f-401b-b110-e535c36091a0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/beers/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET BEER BY NOT EXISTING",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e7b6b02f-cb40-4a05-8947-213caa550c4e",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "54ecf2c1-5da0-4dc6-a7ef-dfd7c02cba01",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/beers/id/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beers",
+								"id",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET BEER BY ID OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e7b6b02f-cb40-4a05-8947-213caa550c4e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Regarde si data conatins Beer id : 5 => Blanche Neuve\", function () {\r",
+									"    var test = pm.environment.get(\"data\");\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(test);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d5b6436d-203f-4e4a-81c7-d2c23cc79a63",
+								"exec": [
+									"pm.environment.set(\"data\", {\r",
+									"        \"idBrewery\": 3,\r",
+									"        \"idType\": 6,\r",
+									"        \"beerName\": \"Blanche-Neuve\",\r",
+									"        \"degree\": 3.5,\r",
+									"        \"isNew\": 0,\r",
+									"        \"price\": 3,\r",
+									"        \"imageUrl\": \"../data/images/Bush-Blonde-33cl.webp\",\r",
+									"        \"quantite\": 25\r",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "f2119c35-34aa-404e-a7c0-f2ff4a564f1b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/beers/id/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beers",
+								"id",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ADD NEW BEER",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "57241a3f-bc0f-4cc5-aaeb-1c08259a8126",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "89fae317-70a0-4b14-b0e2-d26f13d97802",
+								"exec": [
+									"\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "60fd0b82-d43f-4bf5-8e3b-0d7598ac4f41",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"degree\" : 9,\r\n    \"idBrewery\": 1,\r\n    \"price\":2, \r\n    \"beerName\": \"Regalade\",\r\n    \"idType\":1,\r\n    \"quantite\":25,\r\n    \"stock\":1,\r\n    \"isNew\":0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/beers/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET BEER IF CONTAIN OK",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a2374869-87aa-4853-84f0-15a947a2743e",
+								"exec": [
+									"pm.environment.set(\"blanche\", [{\r",
+									"            \"idBrewery\": 3,\r",
+									"            \"idType\": 6,\r",
+									"            \"beerName\": \"Blanche-Neuve\",\r",
+									"            \"degree\": 3.5,\r",
+									"            \"isNew\": 0,\r",
+									"            \"price\": 3,\r",
+									"            \"quantite\": 25,\r",
+									"            \"imageUrl\": \"../data/images/Bush-Blonde-33cl.webp\"\r",
+									"        }]);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8245be7-a15d-40d4-98e8-be03eefc0522",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Get Blanche Neuve\", function () {\r",
+									"\r",
+									"    test = pm.environment.get(\"blanche\");\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(test);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "0533afab-fc8f-44d8-a818-f7de471565a3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/beers/Blanche",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beers",
+								"Blanche"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET BEER IF CONTAIN NOT EXISTING",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a2374869-87aa-4853-84f0-15a947a2743e",
+								"exec": [
+									"pm.environment.set(\"vide\", []);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8245be7-a15d-40d4-98e8-be03eefc0522",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Get Array Vide\", function () {\r",
+									"\r",
+									"    test = pm.environment.get(\"blanche\");\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(test);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "27411e83-eb12-4450-bbce-b2f43bfa8667",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/beers/Blancheaaaa",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beers",
+								"Blancheaaaa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE BEER BY ID OK",
+					"id": "519778c1-b49e-46a6-b109-5944eaa9da68",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/beers/id/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beers",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "a07e9b5c-4b15-47a4-a328-9d36ad973ea4"
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "getUsers",
+					"id": "e04115af-d906-4d99-b00e-6273d3510e7f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsicHNldWRvIjoibHVsdXpkemQiLCJlbWFpbCI6Imx1bHVAZ21haWwuY29tIiwiaWRVc2VyIjoxMSwidG9rZW4iOm51bGx9LCJpYXQiOjE2NTM4NDIyMTAsImV4cCI6MTY1Mzg0NTgxMH0.pFwbzgdWZ_gngDhv6hC272ln-fbLD5j3n-0txprJbHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/users/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"id": "b798f4cc-7e0e-4610-b824-cf99bd97b843",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pseudo\":\"lulua\",\r\n    \"email\": \"lulu@gmail.com\",\r\n    \"password\":\"aaa\",\r\n    \"roles\": \"user\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/users/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserByUserId",
+					"id": "521ce572-290b-4e4d-ae80-e49bd8d513b6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsicHNldWRvIjoibHVsdXpkemQiLCJlbWFpbCI6Imx1bHVAZ21haWwuY29tIiwiaWRVc2VyIjoxMSwidG9rZW4iOm51bGx9LCJpYXQiOjE2NTM1OTE0ODgsImV4cCI6MTY1MzU5NTA4OH0.40-AJgc7g4YgNlIv5H5XZ9Nid8QuaIOdewK3uzOvG-Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/users/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"id": "7ee646f9-2f4b-4f38-bd2b-a7c2c992a0a6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pseudo\":\"lulu\",\r\n    \"password\":\"123AZE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/users/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUsers",
+					"id": "d77fdb27-761c-4abb-b511-3737013e81dc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/users/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"id": "b9356c88-df3e-4463-a7d7-290db596a41e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/users/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "1bf77567-78c4-4902-ab96-4abc4dc0e3d4"
+		},
+		{
+			"name": "Brewery",
+			"item": [
+				{
+					"name": "GET ALL BREWERY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "80f45a38-0ad2-48f3-954f-8d0a9108bdec",
+								"exec": [
+									"pm.test(\"Test to see if array\",function() {\r",
+									"    pm.collectionVariables.get(\"1aze\");\r",
+									"    pm.environment.get(\"variable_key\");\r",
+									"}\r",
+									")\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "fe1409be-64cd-4c44-b7bb-a43c1f09d565",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/brewery/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"brewery",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "3ac06488-75e0-4b03-ab22-0554b817ce84"
+		},
+		{
+			"name": "HelloWorld",
+			"id": "4f441ff6-f631-4833-8c45-29efc0e4190e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

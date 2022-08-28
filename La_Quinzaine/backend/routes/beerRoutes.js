@@ -13,6 +13,7 @@ router
 router.route("/id/:id")
     .get(beerControllers.getBeerByBeerId)
     .delete(beerControllers.deleteBeer)
+    .patch(beerControllers.updateBeer)
 
 router.route("/:contain").get(beerControllers.getBeerIfContains);
 

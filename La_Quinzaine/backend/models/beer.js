@@ -118,17 +118,15 @@ module.exports = {
             }
         );
     },
-    updateBeer: (data, callBack) => {
+    updateBeer: (id,toUpdate, callBack) => {
         pool.query(
             `update beer
              set degree=?,
                  beerName=?,
                  price=?
              where idBeer = ?`,
-            [
-                data.degree,
-                data.beerName,
-                data.price
+            [toUpdate.degree,toUpdate.beerName,toUpdate.price,
+                id
             ],
             (error, results, fields) => {
                 if (error) {
