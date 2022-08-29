@@ -14,8 +14,7 @@ const LogOutScreen = () => {
     return (
 
         <View>
-            <MyButton onPress={logout} text="Oui"></MyButton>
-            <Text> Succeffuly logged out </Text>
+            <MyButton size={20} onPress={logout} text="Voulez vous vraiment vous déconnecter ?"></MyButton>
         </View>
     )
 }
