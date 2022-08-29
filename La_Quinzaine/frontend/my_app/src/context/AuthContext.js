@@ -21,6 +21,7 @@ const AuthProvider = ({children}) => {
             authenticated: 'false',
             roles: 'user'
         });
+        alert('vous vous êtes déconnecté...')
     };
     const onSignInPressed = async () => {
         const url = 'http://localhost:3000/api/users/login';

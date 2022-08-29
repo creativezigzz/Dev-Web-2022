@@ -36,7 +36,7 @@ const LogInScreen = () => {
                 secureTextEntry
             />
 
-            <MyButton onPress={onSignInPressed} text='log in'/>
+            <MyButton size={40} onPress={onSignInPressed} text='log in'/>
 
         </View>
     )

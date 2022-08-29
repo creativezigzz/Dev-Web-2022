@@ -28,6 +28,10 @@ const SignInScreen = () => {
                 console.error('Error',error)
             })
     }
+    function onPressed(){
+            onSignInPressed;
+            navigation.navigate('Menu');
+    }
     return (
         <View>
             <Text style={{fontSize: 28}}>Pseudo :</Text>
@@ -53,7 +57,7 @@ const SignInScreen = () => {
                 secureTextEntry
             />
 
-            <MyButton onPress={onSignInPressed} text='Sign in'/>
+            <MyButton size={40} onPress={onPressed} text='Sign in'/>
 
         </View>
     )
