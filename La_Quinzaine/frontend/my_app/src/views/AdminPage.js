@@ -28,7 +28,6 @@ const MyAdmin = (props) => {
 
         return (
             <View>
-                <AfficherInfoBiere/>
                 <FlatList
                     data={beerList}
                     keyExtractor={(item) => item.idBeer}
@@ -129,10 +128,13 @@ const MyAdmin = (props) => {
                         marginHorizontal: 25
                     }} source={require('../data/images/search.png')}/>
                 </Pressable>
+                <View>
+                <AfficherInfoBiere/>
+                </View>
             </View>
-            <View style={{padding: 10, flex: 1}}>
+            <ScrollView style={{padding: 10, flex: 1}}>
                 <AfficherBiere goNav={props.goNav}/>
-            </View>
+            </ScrollView>
             <View>
             </View>
 

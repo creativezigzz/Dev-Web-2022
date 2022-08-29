@@ -10,7 +10,7 @@ const BreweryPage = ({ route}) => {
         breweryName: 'Loading',
         urlImage:'null'
     });
-    const id = route.params.paramKey// ATTENTION ICI JE PRENDS  L'INDEX DU TABLEAU mais je dois prendre l'id de la biere// require(urlImage) de la biere stockée
+    const id = route.params.paramKey// 
     useEffect(() => {
         getData('http://localhost:3000/api/brewery/id/' + id)// add conditional check
             .then(data =>setBreweryInfo(data.data))

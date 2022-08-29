@@ -15,8 +15,7 @@ const MyBeers = (props) => {
 
     const AfficherBeer = () => {
         return (
-            <ScrollView>
-                <AfficherInfoBeer/>
+            <View>
                 <FlatList
 
                     data={beerList}
@@ -27,7 +26,7 @@ const MyBeers = (props) => {
                     }
 
                 />
-            </ScrollView>
+            </View>
         )
     }
 
@@ -81,9 +80,12 @@ const MyBeers = (props) => {
                 <BarreDeRecherche style={{flex: 3}} value={lookBeer} setValue={setLookBeer}
                                   placeholder={'Recherche de Biere'}/>
             </View>
-            <View style={{padding: 10, flex: 1}}>
-                <AfficherBeer goNav={props.goNav}/>
+            <View>
+                <AfficherInfoBeer/>
             </View>
+            <ScrollView style={{padding: 10, flex: 1}}>
+                <AfficherBeer goNav={props.goNav}/>
+            </ScrollView>
             <View>
             </View>
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Pressable, TextInput, View, Text, FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {Pressable, TextInput, View, Text, FlatList, Image, StyleSheet, TouchableOpacity,ScrollView} from 'react-native';
 import BarreDeRecherche from "../components/BarreDeRecherche";
 import {getData} from "../context/fetchContext";
 
@@ -18,7 +18,6 @@ const MyBrewery = (props) => {
 
         return (
             <View>
-                <AfficherInfoBrewery/>
                 <FlatList
                     data={breweryList}//mettre ici breweryList
                     keyExtractor={(item) => item.idBrewery}
@@ -69,9 +68,12 @@ const MyBrewery = (props) => {
                 <BarreDeRecherche value={lookBrewery} setValue={setLookBrewery}
                                   placeholder={'Recherche de Brasseries'}/>
             </View>
-            <View style={{padding: 10, flex: 1}}>
-                <AfficherBrewery goNav={goNav}/>
+            <View>
+            <AfficherInfoBrewery/>
             </View>
+            <ScrollView style={{padding: 10, flex: 1}}>
+                <AfficherBrewery goNav={goNav}/>
+            </ScrollView>
             <View>
             </View>
         </View>

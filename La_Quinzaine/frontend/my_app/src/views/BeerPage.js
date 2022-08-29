@@ -1,8 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState,useContext} from "react";
 import {
     Image, View, Text, StyleSheet, Pressable, TouchableOpacity
 } from 'react-native';
 import {getData} from "../context/fetchContext";
+import {AuthContext} from "../context/AuthContext";
+
+
+
 const BeerPage = ({route}) => {
     const [beerInfo, setBeerInfo] = useState({
         idBeer : 1,
@@ -56,10 +60,18 @@ const BeerPage = ({route}) => {
 
 
     const LayoutBeer = () => {
+
+
         const Stars = () => {
+    
+    
+        
+
             const [number, setNumber] = useState(3); //get fetch vote //probablement supprimable et rajouter une constante
             //dans useState d'en dessous qui appel pour set le nbr d'étoiles au début un fetch
             const [star, setStar] = useState(tabBool(number));
+
+    
 
             function tabBool(number) {
                 let tab = [];
@@ -73,6 +85,8 @@ const BeerPage = ({route}) => {
             }
 
             const OneStar = (props) => {
+
+        
 
                 const onClick = () => {
                     setNumber(props.number); //probablement modifiable pour modifier la donnée dans la data base.
