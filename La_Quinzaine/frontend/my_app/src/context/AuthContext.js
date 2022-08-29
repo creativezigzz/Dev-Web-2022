@@ -9,7 +9,8 @@ const AuthProvider = ({children}) => {
     const [authState, setAuthState] = useState({
         userToken: '',
         authenticated: 'false',
-        roles: 'user'
+        roles: 'user',
+        idUser: 0,
     });
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -43,7 +44,8 @@ const AuthProvider = ({children}) => {
                     setAuthState({
                         userToken: data.token,
                         authenticated: 'true',
-                        roles: data.roles
+                        roles: data.roles,
+                        idUser: data.id
                     })
                 }
 
@@ -60,6 +62,9 @@ const AuthProvider = ({children}) => {
     const getUserToken = () => {
         return authState.userToken;
     };
+    const getIdCurrentUser = () => {
+        return authState.idUser
+    }
     const isAuthenticated = () => {
         return authState.authenticated;
     }
@@ -83,6 +88,7 @@ const AuthProvider = ({children}) => {
     return (
         <Provider
             value={{
+                getIdCurrentUser,
                 authState,
                 getUserToken,
                 setAuthState,

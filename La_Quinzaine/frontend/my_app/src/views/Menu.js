@@ -7,7 +7,7 @@ import MyBeers from '../views/Beers';
 import MyBrewery from '../views/Brewery'
 import MyAdmin from './AdminPage';
 import LogOutScreen from './LogOutScreen';
-import {AuthContext} from "../context/AuthContext";
+import {AuthContext} from "../context/AuthContext"; // Cette ligne
 import MyEvents from './EventPage';
 
 
@@ -16,7 +16,7 @@ function Menu({navigation}) {
         isAuthenticated,
         isLoggedIn,
         isRoles
-    } = useContext(AuthContext)
+    } = useContext(AuthContext) // Tu choppes les données genre isAuthenticated fonction
 
 
     const AdminMenu = () => {
@@ -45,7 +45,7 @@ function Menu({navigation}) {
         [])
     const LogScreenMenu = () => {
 
-        if (isAuthenticated() === 'true') {
+        if (isAuthenticated() === 'true') { // Ca renvoi ca 'true' ou 'false'
             return (
                 <MyMenuButton style={style.pressable_menu} where={'Deconnexion'}
                               onClickMyButton={goNavigate}/>

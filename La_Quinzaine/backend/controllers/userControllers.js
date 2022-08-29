@@ -84,7 +84,8 @@ module.exports = {
                     message: "Login successfully",
                     token: jsontoken,
                     statusCode: 200,
-                    roles: results.roles
+                    roles: results.roles,
+                    id : results.idUser
                 });
             } else {
                 return res.status(405).json({
