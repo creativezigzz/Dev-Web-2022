@@ -22,8 +22,8 @@ const MyEvents = () => {
         useEffect(() => {
             getData('http://localhost:3000/api/brewery/id/' + props.breweryId).then(d => setBrewery(d.data))// add conditional check
         }, [props.breweryId])
-
-        console.log(Date(props.dateString))
+        console.log(props.dateString)
+        console.log(new Date(props.dateString))
 
         //VIEW d'une brasserie
         return (
@@ -34,7 +34,7 @@ const MyEvents = () => {
                         borderBottomColor: 'black',
                         borderBottomWidth: 3,
                         marginHorizontal: 5,
-                        marginRight: 85,
+                        marginRight: 12,
                     }}
                 />
                 <View style={{margin:2,marginLeft:12}}>

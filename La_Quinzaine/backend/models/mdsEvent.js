@@ -3,7 +3,8 @@ module.exports = {
    getEvents:(callBack) =>{
     pool.query(
         `select *
-         from mdsEvent`,
+         from mdsEvent
+         order by eventDate`,
         (error, results) => {
             if (error) {
                 callBack(error);

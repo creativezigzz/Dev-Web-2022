@@ -72,12 +72,14 @@ create table avis
 
 create index idBeer_idx
     on avis (idBeer);
-
-create table mdsEvent(
-    idEvent       int          auto_increment    primary key,
+    
+create table mdsEvent
+(
+    idEvent       int          auto_increment
+        primary key,
     eventDescript varchar(255) default 'Pas encore de description' null,
     idBrewery     int                                              not null,
-    eventDate     int                                              not null,
+    eventDate     varchar(10)                                              not null,
     constraint idBrewzery2
         foreign key (idBrewery) references brewery (idBrewery)
             on update cascade on delete cascade,
